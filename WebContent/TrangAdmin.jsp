@@ -2,6 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<%@ page import = "model.TaiLieu" %>
+	<%@ page import = "dao.TaiLieuDAOImpl" %>
+	<%@ page import = "model.TinTuc" %>
+	<%@ page import = "dao.TinTucDAOImpl" %>
 	<%@ page import = "model.LopDK" %>
 	<%@ page import = "dao.HoaDonDAOImpl" %>
 	<%@ page import = "model.HoaDon" %>
@@ -14,13 +18,11 @@
 	<%@ page import = "java.util.*" %>
 <title>Trang Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- 	<!-- <link rel="stylesheet" type="text/css" href="css/CSS_Admin.css"> -->
  	<link rel="stylesheet" type="text/css" href="css/CSS_ThemPH.css">
 </head>
 <body>
@@ -56,12 +58,14 @@
 	<div id="menu" style=" margin-left: 50px;margin-top: 10px">
 		
 		<div class="tab" >
+		  
 		  <button class="tablinks" onclick="openCity(event, 'Phụ Huynh')" id="defaultOpen">PHỤ HUYNH</button>
 		  <button class="tablinks" onclick="openCity(event, 'Gia Sư')">GIA SƯ</button>
 		  <button class="tablinks" onclick="openCity(event, 'Lớp Học')">LỚP HỌC</button>
 		  <button class="tablinks" onclick="openCity(event, 'Hóa đơn')">HÓA ĐƠN</button>
 		  <button class="tablinks" onclick="openCity(event, 'Phê duyệt lớp')">PHÊ DUYỆT LỚP</button>
 		  <button class="tablinks" onclick="openCity(event, 'Đăng Tin')">ĐĂNG TIN</button>
+		
 		</div>
 		<div id ="main" style="background-color: white">
 
@@ -74,7 +78,8 @@
 						<div class="col-sm-7">
 							<form action="PhuHuynhServlet?command=search" method="post">
 								<div class="input-group">
-									<input type="text" list="dsTen" class="form-control" name="ten" placeholder="Nhập tên phụ huynh cần tìm"> 
+									<!-- <input type="text" list="dsTen" class="form-control" name="ten" placeholder="Nhập tên phụ huynh cần tìm">  -->
+									<input type="text" id="txtTimPH"  class="form-control" name="ten" placeholder="Tìm kiếm..."> 
 									<div class="input-group-btn">
 											<button class="btn btn-default" type="submit" style="font-size: 20px" >
 												<i class="glyphicon glyphicon-search"></i>
@@ -84,7 +89,7 @@
 							</form>
 							
 							
-							<%
+							<%-- <%
 								Set<String> dsTen =new PhuHuynhDAOImpl().getDanhSachTheoTen();
 							%>
 							
@@ -97,7 +102,7 @@
 								<%
 									}
 								%>
-							</datalist>
+							</datalist> --%>
 						</div>
 						<div class="col-sm-2">
 							<a href="PhuHuynhServlet?command=new"><input type="submit" name="submit" value="Thêm PH" /></a>
@@ -108,12 +113,12 @@
 				<br>
 				<%
 					ArrayList<PhuHuynh> dsPH = new PhuHuynhDAOImpl().getListPhuHuynh();
-					ArrayList<PhuHuynh> dsLocPH = (ArrayList<PhuHuynh>) session.getAttribute("dsLocPH");
+					/* ArrayList<PhuHuynh> dsLocPH = (ArrayList<PhuHuynh>) session.getAttribute("dsLocPH");
 					
 					if(session.getAttribute("dsLocPH") != null)
 					{
 						dsPH = dsLocPH;
-					}
+					} */
 				%>
 				<table>
 					<tr>
@@ -130,6 +135,7 @@
 						for(int i=0;i<dsPH.size();i++)
 						{
 					%>
+					<tbody id="tablePhuHuynh">
 					<tr>
 						<td><%=dsPH.get(i).getMaPH() %></td>
 						<td><%=dsPH.get(i).getHoTen() %></td>
@@ -142,8 +148,9 @@
 					<% 
 							}
 					%>
-
+					</tbody>
 				</table>
+				
 			</div>
 
 
@@ -157,7 +164,8 @@
 
 							<form action="GiaSuServlet?command=search" method="post">
 								<div class="input-group">
-									<input type="text" list="dsTen" class="form-control" name="ten" placeholder="Nhập tên gia sư cần tìm"> 
+									<!-- <input type="text" list="dsTen" class="form-control" name="ten" placeholder="Nhập tên gia sư cần tìm">  -->
+									<input type="text" id="txtTimGS" list="dsTen" class="form-control" name="ten" placeholder="Tìm kiếm..."> 
 									<div class="input-group-btn">
 											<button class="btn btn-default" type="submit" style="font-size: 20px" >
 												<i class="glyphicon glyphicon-search"></i>
@@ -167,7 +175,7 @@
 							</form>
 							
 							
-							<%
+							<%-- <%
 								Set<String> dsTenGS =new GiaSuDAOImpl().getDanhSachTheoTen();
 							%>
 							
@@ -180,7 +188,7 @@
 								<%
 									}
 								%>
-							</datalist>
+							</datalist> --%>
 
 						</div>
 						<div class="col-sm-2">
@@ -192,12 +200,12 @@
 		  		<br>
 		  		<%
 			  		ArrayList<GiaSu> dsGS = new GiaSuDAOImpl().getListGiaSu();
-					ArrayList<GiaSu> dsLocGS = (ArrayList<GiaSu>) session.getAttribute("dsLocGS");
+					/* ArrayList<GiaSu> dsLocGS = (ArrayList<GiaSu>) session.getAttribute("dsLocGS");
 					
 					if(session.getAttribute("dsLocGS") != null)
 					{
 						dsGS = dsLocGS;
-					}
+					} */
 		  		%>
 				<table>
 					<tr>
@@ -217,7 +225,7 @@
 					  		for(int i=0;i<dsGS.size();i++)
 							{
 						%>
-					  
+					  <tbody id="tableGiaSu">
 					  <tr>
 					    <td><%=dsGS.get(i).getMaGS() %></td>
 					    <td><%=dsGS.get(i).getHoTen() %></td>
@@ -233,6 +241,7 @@
 					  <%
 							}
 					  %>
+					  </tbody>
 				</table>
 		</div>
 
@@ -244,17 +253,17 @@
 					<div class="col-sm-7">
 						<form action="LopServlet?command=search" method="post">
 							<div class="input-group">
-								<input type="text" list="dsMaLop" class="form-control" name="ma" placeholder="Nhập mã lớp cần tìm">
+								<!-- <input type="text" list="dsMaLop" class="form-control" name="ma" placeholder="Nhập mã lớp cần tìm"> -->
+								<input type="text" id="txtTimLop" class="form-control" name="ma" placeholder="Tìm kiếm...">
 								<div class="input-group-btn">
-									<button class="btn btn-default" type="submit"
-										style="font-size: 20px">
+									<button class="btn btn-default" type="submit" style="font-size: 20px">
 										<i class="glyphicon glyphicon-search"></i>
 									</button>
 								</div>
 							</div>
 						</form>
 
-							<%
+							<%-- <%
 								Set<String> dsMaLop = new LopDAOImpl().getDanhSachTheoMaLop();
 							%>
 							<%
@@ -269,7 +278,7 @@
 							<%
 								}
 							%>
-							 </datalist> 
+							 </datalist>  --%>
 
 						</div>
 					<div class="col-sm-2">
@@ -282,12 +291,12 @@
 		</div>
 				<%
 					ArrayList<Lop> dsLop = new LopDAOImpl().getListLop();
-					ArrayList<Lop> dsLocLop = (ArrayList<Lop>) session.getAttribute("dsLocLop");
+					/* ArrayList<Lop> dsLocLop = (ArrayList<Lop>) session.getAttribute("dsLocLop");
 					
 					if(session.getAttribute("dsLocLop") != null)
 					{
 						dsLop = dsLocLop;
-					}
+					} */
 				%>
 		  		<br>
 				<table>
@@ -309,7 +318,7 @@
 					  		for(int i=0; i<dsLop.size();i++)
 					  		{
 					  %>
-					  
+					  <tbody id="tableLop">
 					  <tr>
 					    <td><%=dsLop.get(i).getMaLop() %></td>
 					    <td><%=dsLop.get(i).getMaPH() %></td>
@@ -338,6 +347,7 @@
 					 <%
 					  		}
 					 %>
+						</tbody>
 				</table>
 		</div>
 		<div id="Hóa đơn" class="tabcontent">
@@ -346,9 +356,10 @@
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-7">
-						<form action="LopServlet?command=search" method="post">
+						<form action="HoaDonServlet?command=search" method="post">
 							<div class="input-group">
-								<input type="text" list="dsMaLop" class="form-control" name="ma" placeholder="Nhập mã lớp cần tìm">
+								<!-- <input type="date"  class="form-control" name="txtTimKiem" placeholder="Nhập ngày lập hóa đơn cần tìm"> -->
+								<input type="text" id="txtTimHD"  class="form-control" name="txtTimKiem" placeholder="Tìm kiếm...">
 								<div class="input-group-btn">
 									<button class="btn btn-default" type="submit"
 										style="font-size: 20px">
@@ -366,6 +377,12 @@
 		</div>
 				<%
 						ArrayList<HoaDon> dsHD = new HoaDonDAOImpl().getListHoaDon();	
+						
+						/* ArrayList<HoaDon> dsLocHD = (ArrayList<HoaDon>) session.getAttribute("dsLocHD");
+						if(session.getAttribute("dsLocHD") != null)
+						{
+							dsHD = dsLocHD;
+						} */
 				%>
 		  		<br>
 				<table>
@@ -381,6 +398,7 @@
 					  		for(int i=0; i<dsHD.size();i++)
 					  		{  			
 					  %>
+					  <tbody id="tableHoaDon">
 					  <tr>
 					    <td><%=dsHD.get(i).getMaHD() %></td>
 					    <td><%=dsHD.get(i).getMaLop() %></td>
@@ -392,6 +410,7 @@
 					 <%
 					  		}
 					 %>
+					 </tbody>
 				</table>
 		</div>
 		
@@ -427,23 +446,142 @@
 					  		}
 					 %>
 				</table>
+				
+				
 		</div>
 		<div id="Đăng Tin" class="tabcontent" style="text-align: center;">
-		  <h2 style="color:  #4CAF50;">Upload tài liệu hoặc tin tức</h2>
-			<form id="myForm">
-			  Chọn một hoặc nhiều file bạn muốn sử dụng 
-			</form>
-			<input type="file" id="myFile" style="margin-left:450px;margin-top: 10px"><br>
-			<button onclick="myFunction()">Upload</button>
-			<p id="demo"></p>
-
-			<script>
-			function myFunction() {
-			    var x = document.getElementById("myFile").form.id;
-			    document.getElementById("demo").innerHTML = x;
-			}
-			</script>
+		  <h2 style="color:  #4CAF50;">DANH SÁCH CÁC TIN TỨC VÀ TÀI LIỆU</h2>
+		  <div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-7">
+						<form action="HoaDonServlet?command=search" method="post">
+							<div class="input-group">
+								<input type="text" id="txtTinTuc"  class="form-control" name="txtTimKiem" placeholder="Tìm kiếm...">
+								<div class="input-group-btn">
+									<button class="btn btn-default" type="submit" style="font-size: 20px">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+						</div>
+					<div class="col-sm-2">
+						<a href="#ThemTaiLieu"><input class="btn-success" type="submit" name="submit" value="Thêm tài liệu" /></a>
+					</div>
+					<div class="col-sm-1">
+						<a href="#ThemTinTuc"><input class="btn-danger" type="submit" name="submit" value="Thêm tin tức" /></a>
+					</div>
+				</div>
+		  </div>
+		  		<br>
+		  		<%
+		  			ArrayList<TinTuc> dsTinTuc = new TinTucDAOImpl().getListTinTuc();
+		  			ArrayList<TaiLieu> dsTaiLieu = new TaiLieuDAOImpl().getListTaiLieu();
+		  		%>
+				<table>
+					<tr>
+					    <th>Tên tiêu đề</th>
+					    <th>Loại</th>
+					    <th>Xóa</th>
+					  </tr>
+					  
+					  <tbody id="tableTinTuc">
+					  <%
+					  	for(TinTuc tin: dsTinTuc)
+					  	{
+					  %>
+					  <tr>
+					    <td><%=tin.getTieuDe() %></td>
+					    <%
+					    	if(tin.getLoai()==1){
+					    %>
+					    <td>Tin tức</td>
+					    <%
+					    	}
+					    	else if (tin.getLoai()==2)
+					    	{
+					    %>
+					    <td>Tuyển dụng</td>
+					    <%
+					    	}
+					    %>
+						<td><a href="TaiLieuServlet?command=deleteTinTuc&maSo=<%=tin.getMaSo() %>"><input type="submit" name="btnXoa" value="Xóa" style="width: 100%" /></a></td>
+					  </tr>
+					<%
+					  	}
+					  	for(TaiLieu tl : dsTaiLieu)
+					  	{
+					%>
+					<tr>
+						<td><%=tl.getTieuDe() %></td>
+						<td>Tài liệu</td>
+						<td><a href="TaiLieuServlet?command=deleteTaiLieu&maSo=<%=tl.getMaSo() %>"><input type="submit" name="btnXoa" value="Xóa" style="width: 100%" /></a></td>
+					<%
+					  	}
+					%>
+					</tr>
+					 </tbody>
+				</table>
+		  
+			<br><br><br>
+			<div class="container-fluid">
+			  
+			  <div class="row">
+			  	<div class="col-sm-12" id=ThemTaiLieu>
+			      <form action="UploadServlet" name="DKTGS" id="FormDKTGS" method="post" style="text-align: left" enctype="multipart/form-data">
+		  				<center><h3>THÊM TÀI LIỆU</h3></center>
+		  				<div class="row">
+								<label for="hoten" style="display: inline;padding-left: 0px;">Tiêu đề (<span class="red">*</span>)</label> 
+								<input type="text" name="txtTieuDeTL" placeholder="Tiêu đề..." required style="width: 100%;"/>
+							</div>
+							<div class="row">
+								<label for="hoten" style="display: inline;padding-left: 0px;">Nội dung (<span class="red">*</span>)</label> 
+								<input type="file" name="file" id="myFile" required style="width: 80%;"><br>
+							</div>
+							<div class="submit">
+								<input type="submit" value="UPLOAD">
+							</div>
+							<br><br><br>
+					</form>
+			    </div>
+			    <div class="col-sm-12"  id="ThemTinTuc">
+			      <form action="TaiLieuServlet?command=insertTinTuc" name="DKTGS" id="FormDKTGS" method="post" style="text-align: left" enctype="multipart/form-data">
+		  				<center><h3>THÊM TIN TỨC</h3></center>
+		  					<div class="row" >
+		  						<label for="hoten" style="display: inline;padding-left: 0px;">Loại tin tức (<span class="red">*</span>)</label>
+		  						<select name="txtLoai" style="width: 100%;">
+		  							<option value="1">Tin tức</option>
+		  							<option value="2">Thông báo tuyển dụng</option>
+		  						</select>
+		  					</div>
+		  					<div class="row" >	
+								<label for="hoten" style="display: inline;padding-left: 0px;">Tiêu đề (<span class="red">*</span>)</label> 
+								<input type="text" name="txtTieuDeTT" placeholder="Tiêu đề..." required style="width: 100%;"/>
+							</div>
+							<div class="row">
+								<label for="diachi" style="display: inline;padding-left: 0px;">Nội dung (<span class="red">*</span>)</label> 
+								<textarea  name="txtNDTinTuc" placeholder="Nội dung..." style="height:300px; width: 100%;"></textarea>
+								<!-- <input type="text" name="txtNDTinTuc" placeholder="Nội dung..." required style="width: 100%;"/> -->
+							</div>
+							<div class="row">
+								<label for="anhthe">Hình ảnh(<span class="red">*</span>)</label> 
+								<input type="file" name="picHinhAnh" id="image" required="required">					
+							</div>
+							<div class="submit">
+								<input type="submit" value="LƯU">
+							</div>
+							<br><br><br>
+					</form>
+					<br><br><br>
+			    </div>
+			    
+			    
+			  </div>
+			</div>
+			
 		</div>
+		
 	</div>
 		</div>
 		
@@ -464,5 +602,40 @@
 }
 
 	document.getElementById("defaultOpen").click();
+</script>
+
+<script>
+$(document).ready(function(){
+  $("#txtTimPH").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#tablePhuHuynh tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+  $("#txtTimGS").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#tableGiaSu tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+  $("#txtTimLop").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#tableLop tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+  $("#txtTimHD").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#tableHoaDon tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+  $("#txtTinTuc").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#tableTinTuc tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+});
 </script>
 </html>

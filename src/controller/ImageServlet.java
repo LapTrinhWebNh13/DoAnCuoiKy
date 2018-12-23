@@ -19,27 +19,69 @@ public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mags=request.getParameter("maGS");
-		System.out.println(mags);
-		byte[] img = null;
-		ServletOutputStream sos = null;
-		String sql = "select HinhAnh from giasu where MaGS='"+mags+"'";
-		try
-		{
-			Connection conn = DBConnect.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			if(rs.next())
+		String command = request.getParameter("command");
+		System.out.println(command);
+		
+		try {
+			switch(command)
 			{
-				img = rs.getBytes(1);
+			case "GiaSu":
+			{
+				String mags=request.getParameter("maGS");
+				byte[] img = null;
+				ServletOutputStream sos = null;
+				String sql = "select HinhAnh from giasu where MaGS='"+mags+"'";
+				try
+				{
+					Connection conn = DBConnect.getConnection();
+					PreparedStatement ps = conn.prepareStatement(sql);
+					ResultSet rs = ps.executeQuery();
+					if(rs.next())
+					{
+						img = rs.getBytes(1);
+					}
+					sos = response.getOutputStream();
+					sos.write(img);
+				}
+				catch(Exception e)
+				{
+					
+				}
 			}
-			sos = response.getOutputStream();
-			sos.write(img);
+				break;
+			case "TinTuc":
+				String maso=request.getParameter("maSo");
+				System.out.println(maso);
+				byte[] img = null;
+				ServletOutputStream sos = null;
+				String sql = "select HinhAnh from tintuc where MaSo='"+maso+"'";
+				try
+				{
+					Connection conn = DBConnect.getConnection();
+					PreparedStatement ps = conn.prepareStatement(sql);
+					ResultSet rs = ps.executeQuery();
+					if(rs.next())
+					{
+						img = rs.getBytes(1);
+					}
+					sos = response.getOutputStream();
+					sos.write(img);
+				}
+				catch(Exception e)
+				{
+					
+				}
+				break;
+			default:
+				break;
+			}
 		}
 		catch(Exception e)
 		{
-			
+			System.out.println(e);
 		}
+		
+		
 	}
 
 }

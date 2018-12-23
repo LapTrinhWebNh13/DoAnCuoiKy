@@ -14,12 +14,18 @@ import model.LopDK;
 
 
 public class HoaDonDAOImpl implements HoaDonDAO{
+	
+	public static ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
 
+	public HoaDonDAOImpl()
+	{
+		dsHoaDon.removeAll(dsHoaDon);
+	}
 	@Override
 	public ArrayList<HoaDon> getListHoaDon() {
 		Connection conn =DBConnect.getConnection();
 		String sql = "select * from hoadon";
-		ArrayList<HoaDon> dsHoaDon =new ArrayList<>();
+		
 		try
 		{
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -46,11 +52,9 @@ public class HoaDonDAOImpl implements HoaDonDAO{
 
 	@Override
 	public ArrayList<LopDK> getListDangKy() {
-		System.out.println("1");
 		Connection conn =DBConnect.getConnection();
 		String sql = "select l.MaLop, l.LopDay, l.YeuCau, gs.MaGS, gs.HoTen, gs.TrinhDo from GIASU gs, LOP l, DANGKY dk where gs.MaGS=dk.MaGS and l.MaLop=dk.MaLop";
 		ArrayList<LopDK> list =new ArrayList<>();
-		System.out.println("2");
 		try
 		{
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -77,7 +81,6 @@ public class HoaDonDAOImpl implements HoaDonDAO{
 		{
 
 		}
-		System.out.println("4");
 		return list;
 	}
 
@@ -107,6 +110,35 @@ public class HoaDonDAOImpl implements HoaDonDAO{
 		conn.close();
 		
 		return rowInsert;
+	}
+
+	@Override
+	public ArrayList<HoaDon> getHoaDonTheoNgay(String ngay) throws SQLException {
+		Connection conn = DBConnect.getConnection();
+		String sql = "select * from HOADON where ThoiGian = '"+ngay+"'";
+		ArrayList<HoaDon> dsLocHD = new ArrayList<>();
+		
+		try
+		{
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				HoaDon hd = new HoaDon();
+				hd.setMaHD(rs.getString("MaHD"));
+				hd.setMaGS(rs.getString("MaGS"));
+				hd.setMaLop(rs.getString("MaLop"));
+				hd.setTienLePhi(rs.getFloat("TienLePhi"));
+				hd.setThoiGian(rs.getDate("ThoiGian"));
+				dsLocHD.add(hd);
+			}
+			conn.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+		return dsLocHD;
 	}
 
 	

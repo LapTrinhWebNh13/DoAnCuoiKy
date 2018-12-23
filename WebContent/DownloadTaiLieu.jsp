@@ -2,24 +2,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<%@ page import = "dao.GiaSuDAOImpl" %>
-	<%@ page import = "model.GiaSu" %>
-	<%@ page import = "dao.LopDAOImpl" %>
-	<%@ page import = "model.Lop" %>
+	<%@ page import = "dao.TaiLieuDAOImpl" %>
+	<%@ page import = "model.TaiLieu" %>
+	<%@ page import = "dao.TinTucDAOImpl" %>
+	<%@ page import = "model.TinTuc" %>
 	<%@ page import = "java.util.*" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>DangKyNhanLop</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/CSS_LopDangCanGiaSu.css">
+<title>Download Tai Lieu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/CSS_LMCG.css">
 </head>
 <body>
-
-<body>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-1">
@@ -51,9 +50,8 @@
 				<nav class="nav">
 					<div id="menu">
 						<ul class="nav navbar-nav" style="background-color:#F7CD20;">
-							
-							<li ><a href="TrangChu.jsp">TRANG CHỦ</a></li>
-							<li class="hover"><a href="LopMoiChuaGiao.jsp">LỚP MỚI</a></li>
+							<li class="hover"><a href="TrangChu.jsp">TRANG CHỦ</a></li>
+							<li><a href="LopMoiChuaGiao.jsp">LỚP MỚI</a></li>
 							<li><a href="DangKyTimGiaSu.jsp" >PHỤ HUYNH</a></li>
 							<li><a href="DangKyLamGiaSu.jsp" >GIA SƯ</a></li>
 							<li><a href="TuyenDung.jsp" >TUYỂN DỤNG</a></li>
@@ -89,7 +87,7 @@
 				</div> 
 
 
-				<div class="col-sm-4" >  	
+				<div class="col-sm-4">  	
 					<a href="#"><img src="image/DKLGS.png"></a>				
 				</div>
 			</div>
@@ -142,99 +140,53 @@
 			<div class="col-lg-7">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<p style="margin-left: 50px;color: white;font-weight: bold;font-size: 16px;">LỚP ĐANG CẦN GIA SƯ</p>
+						<p style="margin-left: 50px;color: white;font-weight: bold;font-size: 16px;">DOWNLOAD TÀI LIỆU</p>
 					</div>
 					<div class="panel-body">
-						<h4 style="border-bottom: 1px solid black;">Việc làm cần gia sư dạy môn Toán Lớp 6 Q.Tân Bình Hồ Chí Minh</h4>
 						<div class="row">
-							
-							<%
-								Lop lop = new LopDAOImpl().getLop(request.getParameter("maLop"));
-							%>
-						
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<p><b>Mã lớp</b>: <%=lop.getMaLop() %></p>
-								<p><b>Lớp dạy</b>: <%=lop.getLopDay() %></p>
-								<p><b>Môn dạy</b>: <%=lop.getMonDay() %></p>
-								<p><b>Địa chỉ</b>: <%=lop.getDiaChi() %></p>
-								<p><b>Lương</b>: <%=lop.getLuong() %> đồng/tháng</p>
-								<p><b>Số buổi</b>: <%=lop.getSoBuoi() %> buổi /tuần</p>
-								<p><b>Thời gian dạy</b>: <%=lop.getThoiGianDay() %></p>
-								<p><b>Yêu cầu</b>: <%=lop.getYeuCau() %> </p>
-								<p><b>Người học</b>: <%=lop.getHocLucHienTai() %></p>
-								<p><b>Liên hệ</b>: 0974.502.420 - 0938.708.488</p>
-							</div>
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<form style="background-color: #95E8E9;" action="LopServlet?command=insertLopDK&maLop=<%=lop.getMaLop() %>" name="LDCGS" id="FormLDCGS" method="post">
-									<br>
-									<h4 style="border-bottom: 1px solid black; text-align: center;">ĐĂNG KÝ NHANH</h4>
-									<label>Tên đăng nhập</label><br>
-									<input type="text" name="txtTenDangNhap" required="required" onblur="makeGetRequest()">
-									<div id="description"></div>
-									<label>Mật khẩu</label><br>
-									<input type="password" name="txtMatKhau" required="required">
-									<div id="description1"></div>
-									<br><br>
-									<input type="submit" name="nhaplop" value="Đăng ký">
-								</form>
-							</div>
-						</div>
-						<br>
-						<div class="row">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th style="background-color: #4CAF50;">STT</th>
+										<th style="background-color: #4CAF50;">Tên tài liệu</th>
+										<th style="background-color: #4CAF50;">Download</t>
+									</tr>
 
-						<h4 style="border-bottom: 1px solid black; margin-left: 10px;">Gia sư cần đọc kĩ "quy trình nhận lớp" trước khi đăng kí nhận dạy <a href="#">tại đây</a></h4>
-						<br><br>
-						
-						
-						</div>
-						<center class="row">
-							<p style=" font-size: 16px;">DANH SÁCH GIA SƯ ĐÃ ĐĂNG KÝ</p>
-							
-						</center>
-						<br>
-						
-							<table border="1">
-							<%
-								ArrayList<GiaSu> dsDSDKNhanLop = new GiaSuDAOImpl().getDSGiaSuDKNhanLop(request.getParameter("maLop"));
-								if(dsDSDKNhanLop.size()==0)
-								{
-							%>
-								<h3>Chưa có gia sư nào đăng ký!!</h3>
-							<%
-								}
-								else
-								{
-							%>
-								
+								</thead>
+								<tbody>
+									<%
+										ArrayList<TaiLieu> dsTL = new TaiLieuDAOImpl().getListTaiLieu();
+										for(int i=0;i<dsTL.size();i++)
+										{
+									%>
 									<tr>
-										<th style="text-align: center">Ảnh</th>
-										<th style="text-align: center">Mã gia sư</th>
-										<th style="text-align: center">Họ tên</th>
-										<th style="text-align: center">Trình độ</th>
+										<td><%=i+1 %></td>
+										<td><%=dsTL.get(i).getTieuDe() %></td>
+										<td>
+											<a href="DownloadServlet?fileName=<%=dsTL.get(i).getFileName() %>"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-download-alt"></span> Download</button></a>
+        								</td>
 									</tr>
-								<%
-									
-									for(GiaSu gs : dsDSDKNhanLop)
-									{
-								%>
-									<tr>
-										<td style="width: 98px; height: 98px;">
-											<img src="./ImageServlet?command=GiaSu&maGS=<%=gs.getMaGS() %>" style="width: 70px;">
-										</td>
-										<td style="width: 118px;"><%=gs.getMaGS() %></td>
-										<td><%=gs.getHoTen() %></td>
-										<td><%=gs.getTrinhDo() %></td>
-									</tr>
-								<%
-									}
-								}
-								%>
-								
+									<%
+										}
+									%>
+								</tbody>
 							</table>
-							<!-- <p style="margin-left: 10px;"><span style="color: red;">(*)</span><i> Cho phép tối đa 8 người đăng ký. Chỉ giao lớp cho 1 người đủ điều kiện đóng lệ phí trước.</i></p> -->
-							<br>
-							<p style="margin-left: 10px;"><span style="color: red;">Lưu ý</span>: Trung tâm Gia sư Thành Được ưu tiên người đủ điều kiện, đóng lệ phí sớm. Trước khi chuyển khoản hoặc tới trung tâm hãy gọi số 0974.502.420 để kiểm tra trạng thái lớp chính xác.</p>
-						
+				<center>
+					<ul class="pagination">
+						<%
+							int count =20;
+							int sumRow = TaiLieuDAOImpl.CountRow();
+							int maxpageid= (sumRow/count)+1;
+							for(int i=1;i<=maxpageid;i++)
+							{
+						%>
+							<li><a href="PageServlet?command=TaiLieu&pageID=<%=i %>"><%=i %></a></li>
+						<%
+							}
+						%>
+					  </ul>
+				</center>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -245,58 +197,43 @@
 						<a href="ThongKeNhanLop.jsp" class="list-group-item" style="text-align: center">THỐNG KÊ NHẬN LỚP<img src="image/new.gif"></a>
 						<a href="LopMoiChuaGiao.jsp" class="list-group-item" style="text-align: center">LỚP MỚI CHƯA GIAO<img src="image/hot.gif"></a>
 						<a href="#" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">DOWNLOAD TÀI LIỆU</a>
-						<a href="DownloadTaiLieuMonToan.jsp" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Toán</a>
-						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Lý</a>
-						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Hóa</a>
-						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Anh</a>
-						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Văn</a>
-						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Sử</a>
-						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Sinh</a>
-						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Địa</a>
-						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu ôn thi TOEIC</a>
-						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu ôn thi IELTS</a>
+						<%
+						ArrayList<TaiLieu> dsTaiLieu = new TaiLieuDAOImpl().getListTaiLieu();
+						for(TaiLieu tl : dsTaiLieu)
+						{
+						%>
+						<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span><%=tl.getTieuDe() %></a>
+						<%
+							}
+						%>
 						<a href="#" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">THÔNG TIN TUYỂN DỤNG</a>
+						<%
+						ArrayList<TinTuc> dsTuyenDung = new TinTucDAOImpl().getTuyenDung();
+						for(TinTuc tin : dsTuyenDung)
+						{
+						%>
 						<a href="#" class="list-group-item">
-							<p style="font-weight: 200;font-size: 14px;">Trung tâm gia sư Trí Việt cần tuyển 20 sinh viên nữ trực điện thoại, có giọng nói dễ nghe</p>
+							<p style="font-weight: 200;font-size: 14px;"><%=tin.getTieuDe() %></p>
 						</a>
-						<a href="#" class="list-group-item">
-							<p style="font-weight: 200;font-size: 14px;">Trung tâm gia sư Trí Việt cần tuyển nhân viên tư vấn giáo dục, yêu tiên sinh viên mới ra trường, có bằng cấp</p>
-						</a>
-						<a href="#" class="list-group-item">
-							<p style="font-weight: 200;font-size: 14px;">Trung tâm gia sư Trí Việt cần tuyển nhân viên bảo vệ, làm việc theo giờ hành chính</p>
-						</a>
+						<%
+							}
+						%>
 
 						<a href="#" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">TIN TỨC</a>
 
-						<a href="#" class="list-group-item">
-							<img src="image/tt1.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-							<p style="font-weight: 200;font-size: 12px;">Cô giáo trẻ dạy Tiếng Anh bằng trải nghiệm sáng tạo</p>
-						</a>
-
-						<a href="#" class="list-group-item">
-							<img src="image/slide.JPG" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-							<p style="font-weight: 200;font-size: 12px;">Kinh nghiệm chọn gia sư dành cho phụ huynh</p>
-						</a>
-
-						<a href="#" class="list-group-item">
-							<img src="image/slide1.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-							<p style="font-weight: 200;font-size: 12px;">Gia sư nên làm gì khi học sinh không nghe lời</p>
-						</a>
-
-						<a href="#" class="list-group-item">
-							<img src="image/slide3.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-							<p style="font-weight: 200;font-size: 12px;">Cô giáo trẻ dạy Tiếng Anh bằng trải nghiệm sáng tạo</p>
-						</a>
-
-						<a href="#" class="list-group-item">
-							<img src="image/phan_lan.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-							<p style="font-weight: 200;font-size: 12px;">Tạo không khí học tập vui vẻ để truyền cảm hứng cho trẻ</p>
-						</a>
-
-						<a href="#" class="list-group-item">
-							<img src="image/tt1.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-							<p style="font-weight: 200;font-size: 12px;">Cô giáo trẻ dạy Tiếng Anh bằng trải nghiệm sáng tạo</p>
-						</a>
+						<%
+						ArrayList<TinTuc> dsTinTuc = new TinTucDAOImpl().getTinTuc();
+						for(TinTuc tin : dsTinTuc )
+						{
+					%>
+					
+					<a href="#" class="list-group-item">
+						<img src="./ImageServlet?command=TinTuc&maSo=<%=tin.getMaSo()  %>" style="float: left; width: 100px;height:65px;margin-left: -15px;margin-right: 5px;">
+						<p style="font-weight: 200;font-size: 12px;"><%=tin.getTieuDe() %></p>
+					</a>
+					<%
+						}
+					%>
 
 						<br>
 
@@ -396,36 +333,5 @@
       	showSlides(slideIndex = n);
       }
   </script>
-<script language="Javascript" type="text/javascript">
-            function createRequestObject() {
-                var tmpXmlHttpObject;
 
-                if (window.XMLHttpRequest) {
-                    tmpXmlHttpObject = new XMLHttpRequest();
-
-                } else if (window.ActiveXObject) {
-                    tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-
-                return tmpXmlHttpObject;
-            }
-            var http = createRequestObject();
-            function makeGetRequest(wordId) {
-                var wordId = document.forms["LDCGS"]["txtTenDangNhap"].value;
-                http.open('get', 'existTenDangNhap.jsp?command=DKLop&txtTenDangNhap=' + wordId);
-                http.onreadystatechange = processResponse;
-                http.send(null);
-            }
-
-            function processResponse() {
-                if (http.readyState == 4 && http.status == 200) {
-                    var response = http.responseText;
-                    document.getElementById("description").style.color = "red";
-                    
-                    document.getElementById('description').innerHTML = '<center><strong><span>'+response+'</span></strong></center>';
-                }
-
-            }
-            
-        </script>
   </html>

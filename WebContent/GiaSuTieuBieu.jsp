@@ -2,6 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<%@ page import = "dao.GiaSuDAOImpl" %>
+	<%@ page import = "model.GiaSu" %>
+	<%@ page import = "dao.TaiLieuDAOImpl" %>
+	<%@ page import = "model.TaiLieu" %>
+	<%@ page import = "dao.TinTucDAOImpl" %>
+	<%@ page import = "model.TinTuc" %>
+	<%@ page import = "dao.LopDAOImpl" %>
+	<%@ page import = "model.Lop" %>
+	<%@ page import = "java.util.*" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,10 +57,10 @@
 			  <div id="menu">
 				<ul class="nav navbar-nav" style="background-color:#F7CD20;">
 				  <li ><a href="TrangChu.jsp">TRANG CHỦ</a></li>
-				  <li><a href="LopMoiChuaGiao.jsp">LỚP MỚI</a></li>
+				  <li><a href="PageServlet?command=LopMoi&pageID=1">LỚP MỚI</a></li>
 				  <li><a href="DangKyTimGiaSu.jsp" >PHỤ HUYNH</a></li>
 				  <li class="hover"><a href="DangKyLamGiaSu.jsp" >GIA SƯ</a></li>
-				  <li><a href="TuyenDung.jsp" >TUYỂN DỤNG</a></li>
+				  <li><a href="PageServlet?command=TuyenDung&pageID=1">TUYỂN DỤNG</a></li>
 				  <li ><a href="LienHe.jsp" >LIÊN HỆ</a></li>
 				  <li><a href="DangNhap.jsp" >ĐĂNG NHẬP</a></li>
 				</ul>
@@ -108,12 +117,15 @@
 					<a href="#" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">GIA SƯ TIÊU BIỂU</a>
   				</div>
   				<div id="anhgstieubieu">
-						<a href="GiaSuTieuBieu.jsp"><img src="image/gs1.jpg" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: -10px"></a>
-						<a href="#"><img src="image/gs2.jpg" style="width: 90px;height: 130px;float: left;margin-right: 5x;margin-top: -10px"></a>
-						<a href="#"><img src="image/gs3.jpg" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: 5px"></a>
-						<a href="#"><img src="image/gs4.jpg" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: 5px"></a>
-						<a href="#"><img src="image/gs5.jpg" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: 5px"></a>
-						<a href="#"><img src="image/gs6.jpg" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: 5px"></a>
+						<%
+  						ArrayList<GiaSu> dsGiaSu = new GiaSuDAOImpl().getListGiaSu();
+  						for(int i=0;i<6;i++)
+  						{
+  					%>
+						<a href="GiaSuTieuBieu.jsp?maGS=<%=dsGiaSu.get(i).getMaGS() %>"><img src="./ImageServlet?command=GiaSu&maGS=<%=dsGiaSu.get(i).getMaGS() %>" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: -10px"></a>
+					<%
+  						}
+					%>
 				</div>	
 					<a href="#" style="text-decoration: none;margin-left: 50px;font-size: 18px;">Xem thêm gia sư</a>
 
@@ -144,78 +156,78 @@
 				<div class="panel-body">
 					<div class="col-lg-9"> 
 						<h4>THÔNG TIN CỦA GIA SƯ</h4>
+						<%
+							GiaSu gs = new GiaSuDAOImpl().getGiaSu(request.getParameter("maGS"));
+						%>
 						<table>
 							<tr style="height:30px;">
 								<td><b>Mã gia sư:</b></td>
-								<td style="margin-left:10px;">100</td>
+								<td style="margin-left:10px;"><%=gs.getMaGS() %></td>
 							</tr>
 							<tr style="height:30px;">
 								<td><b>Họ và tên:</b></td>
-								<td style="margin-left:10px;">Đinh Thị Lệ Chi</td>
+								<td style="margin-left:10px;"><%=gs.getHoTen() %></td>
 							</tr>
 							<tr style="height:30px;">
 								<td><b>Ngày sinh:</b></td>
-								<td style="margin-left:10px;">12/2/1998</td>
+								<td style="margin-left:10px;"><%=gs.getNgaySinh() %></td>
 							</tr>
 							<tr style="height:30px;">
 								<td><b>Hiện là:</b></td>
-								<td style="margin-left:10px;">Cử nhân sư phạm</td>
+								<td style="margin-left:10px;"><%=gs.getNgheNghiep() %></td>
 							</tr>
 							<tr style="height:30px;">
 								<td><b>Chuyên ngành:</b></td>
-								<td style="margin-left:10px;">Sư phạm ngữ văn</td>
+								<td style="margin-left:10px;"><%=gs.getNganhHoc() %></td>
 							</tr>
 							<tr style="height:30px;">
-								<td><b>Nhận dạy:</b></td>
-								<td style="margin-left:10px;">Lớp 1, 2, 3, 4, 5, 6, 7, 8, 9</td>
+								<td><b>Lớp dạy:</b></td>
+								<td style="margin-left:10px;"><%=gs.getLopDay() %></td>
 							</tr>
 							<tr style="height:30px;">
 								<td><b>Dạy các môn:</b></td>
-								<td style="margin-left:10px;">Toán, Ngữ văn, Báo bài, Tiếng Việt, Luyện chữ đẹp</td>
+								<td style="margin-left:10px;"><%=gs.getMonDay() %></td>
 							</tr>
-							<tr style="height:30px;">
-								<td><b>Khu vực:</b></td>
-								<td style="margin-left:10px;">Quận 1, Quận 3, Quận 5, Q.Bình Thạnh</td>
-							</tr>
+							
 							<tr style="height:30px;">
 								<td><b>Yêu cầu lương:</b></td>
-								<td style="margin-left:10px;">125.000 VNĐ</td>
+								<td style="margin-left:10px;"><%=gs.getLuongYauCauToiThieu() %> VNĐ</td>
 							</tr>
-							<tr style="height:30px;">
-								<td><b>Thông tin khác:</b></td>
-								<td style="margin-left:10px;">Có 2 năm kinh nghiệm đứng lớp và dạy kèm</td>
-							</tr>
+							
 						</table>
 					</div>
 					<div class="col-lg-3">
-						<img src="image/gs1.jpg" style="width:100%">
+						<img src="./ImageServlet?command=GiaSu&maGS=<%=request.getParameter("maGS") %>" style="width:100%">
 					</div>
 					<br><br>
 				</div>
-				<h3 style="text-align: center">DANH SÁCH CÁC LỚP ĐÃ ĐĂNG KÝ DẠY</h3>
-				<table border="1" width="100%">
-					<tr style="height:30px;">
-						<td style="text-align: center;"><b>Mã số</b></td>
-						<td style="text-align: center;"><b>Lớp</b></td>
-						<td style="text-align: center;"><b>Môn</b></td>
-						<td style="text-align: center;"><b>Thời gian</b></td>
-						<td style="text-align: center;"><b>Địa chỉ</b></td>
-					</tr>
-					<tr style="height:30px;">
-						<td><p style="margin-left:10px;">100</p></td>
-						<td><p style="margin-left:10px;">Lớp 4</p></td>
-						<td><p style="margin-left:10px;">Toán, Tiếng Việt</p></td>
-						<td><p style="margin-left:10px;">Thứ 2, 4, 6, từ 17h-19h</p></td>
-						<td><p style="margin-left:10px;">Quận Thủ Đức, TP HCM</p></td>
-					</tr>
-					<tr style="height:30px;">
-						<td><p style="margin-left:10px;">490</p></td>
-						<td><p style="margin-left:10px;">Lớp 7</p></td>
-						<td><p style="margin-left:10px;">Toán, Ngữ văn, Lịch sử</p></td>
-						<td><p style="margin-left:10px;">Thứ 5, 7, chủ nhật, từ 19h-21h</p></td>
-						<td><p style="margin-left:10px;">Quận 9, TP HCM</p></td>
-					</tr>
-				</table>
+				<%
+				ArrayList<Lop> dsLopDaDay = new GiaSuDAOImpl().getLopDaDay(request.getParameter("maGS"));
+			%>
+			<h3 style="text-align: center">DANH SÁCH CÁC LỚP ĐÃ ĐĂNG KÝ DẠY</h3>
+			<table border="1" width="100%">
+				<tr style="height: 30px;">
+					<td style="text-align: center;"><b>Mã lớp</b></td>
+					<td style="text-align: center;"><b>Lớp</b></td>
+					<td style="text-align: center;"><b>Môn</b></td>
+					<td style="text-align: center;"><b>Thời gian</b></td>
+					<td style="text-align: center;"><b>Địa chỉ</b></td>
+				</tr>
+				<%
+					for(int i=0; i<dsLopDaDay.size();i++)
+					{
+				%>
+				<tr style="height: 30px;">
+					<td><p style="margin-left: 10px;"><%=dsLopDaDay.get(i).getMaLop() %></p></td>
+					<td><p style="margin-left: 10px;"><%=dsLopDaDay.get(i).getLopDay() %></p></td>
+					<td><p style="margin-left: 10px;"><%=dsLopDaDay.get(i).getMonDay() %></p></td>
+					<td><p style="margin-left: 10px;"><%=dsLopDaDay.get(i).getThoiGianDay() %></p></td>
+					<td><p style="margin-left: 10px;"><%=dsLopDaDay.get(i).getDiaChi() %></p></td>
+				</tr>
+				<%
+					}
+				%>
+			</table>
 			</div>
 			
 		 </div>
@@ -224,60 +236,45 @@
 				<div class="list-group">
 					<a href="#" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">THỐNG KÊ</a>
 					<a href="ThongKeNhanLop.jsp" class="list-group-item" style="text-align: center">THỐNG KÊ NHẬN LỚP<img src="image/new.gif"></a>
-					<a href="LopMoiChuaGiao.jsp" class="list-group-item" style="text-align: center">LỚP MỚI CHƯA GIAO<img src="image/hot.gif"></a>
-					<a href="#" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">DOWNLOAD TÀI LIỆU</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Toán</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Lý</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Hóa</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Anh</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Văn</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Sử</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Sinh</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu môn Địa</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu ôn thi TOEIC</a>
-					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tài liệu ôn thi IELTS</a>
+					<a href="PageServlet?command=LopMoi&pageID=1" class="list-group-item" style="text-align: center">LỚP MỚI CHƯA GIAO<img src="image/hot.gif"></a>
+					<a href="PageServlet?command=TaiLieu&pageID=1" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">DOWNLOAD TÀI LIỆU</a>
+					<%
+						ArrayList<TaiLieu> dsTaiLieu = new TaiLieuDAOImpl().getListTaiLieu();
+						for(TaiLieu tl : dsTaiLieu)
+						{
+					%>
+					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span><%=tl.getTieuDe() %></a>
+					<%
+						}
+					%>
 					<a href="#" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">THÔNG TIN TUYỂN DỤNG</a>
+					<%
+						ArrayList<TinTuc> dsTuyenDung = new TinTucDAOImpl().getTuyenDung();
+						for(TinTuc tin : dsTuyenDung)
+						{
+					%>
 					<a href="#" class="list-group-item">
-						<p style="font-weight: 200;font-size: 14px;">Trung tâm gia sư Trí Việt cần tuyển 20 sinh viên nữ trực điện thoại, có giọng nói dễ nghe</p>
+						<p style="font-weight: 200;font-size: 14px;"><%=tin.getTieuDe() %></p>
 					</a>
-					<a href="#" class="list-group-item">
-						<p style="font-weight: 200;font-size: 14px;">Trung tâm gia sư Trí Việt cần tuyển nhân viên tư vấn giáo dục, yêu tiên sinh viên mới ra trường, có bằng cấp</p>
-					</a>
-					<a href="#" class="list-group-item">
-						<p style="font-weight: 200;font-size: 14px;">Trung tâm gia sư Trí Việt cần tuyển nhân viên bảo vệ, làm việc theo giờ hành chính</p>
-					</a>
+					<%
+						}
+					%>
 					
 					<a href="#" class="list-group-item active" style="background-image: url(image/h3-left.PNG); text-align: center;color: darkred;font-weight: bold">TIN TỨC</a>
 					
-					<a href="#" class="list-group-item">
-						<img src="image/tt1.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-						<p style="font-weight: 200;font-size: 12px;">Cô giáo trẻ dạy Tiếng Anh bằng trải nghiệm sáng tạo</p>
-					</a>
-			  	
-				  	<a href="#" class="list-group-item">
-				  		<img src="image/slide.JPG" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-				  		<p style="font-weight: 200;font-size: 12px;">Kinh nghiệm chọn gia sư dành cho phụ huynh</p>
-				  	</a>
+					<%
+						ArrayList<TinTuc> dsTinTuc = new TinTucDAOImpl().getTinTuc();
+						for(TinTuc tin : dsTinTuc )
+						{
+					%>
 					
 					<a href="#" class="list-group-item">
-						<img src="image/slide1.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-						<p style="font-weight: 200;font-size: 12px;">Gia sư nên làm gì khi học sinh không nghe lời</p>
+						<img src="./ImageServlet?command=TinTuc&maSo=<%=tin.getMaSo()  %>" style="float: left; width: 100px;height:65px;margin-left: -15px;margin-right: 5px;">
+						<p style="font-weight: 200;font-size: 12px;"><%=tin.getTieuDe() %></p>
 					</a>
-					
-					<a href="#" class="list-group-item">
-						<img src="image/slide3.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-						<p style="font-weight: 200;font-size: 12px;">Cô giáo trẻ dạy Tiếng Anh bằng trải nghiệm sáng tạo</p>
-					</a>
-					
-					<a href="#" class="list-group-item">
-						<img src="image/phan_lan.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-						<p style="font-weight: 200;font-size: 12px;">Tạo không khí học tập vui vẻ để truyền cảm hứng cho trẻ</p>
-					</a>
-					
-					<a href="#" class="list-group-item">
-						<img src="image/tt1.jpg" style="float: left; width: 100px;margin-left: -15px;margin-right: 5px;">
-						<p style="font-weight: 200;font-size: 12px;">Cô giáo trẻ dạy Tiếng Anh bằng trải nghiệm sáng tạo</p>
-					</a>
+					<%
+						}
+					%>
 
 					<br>
 					

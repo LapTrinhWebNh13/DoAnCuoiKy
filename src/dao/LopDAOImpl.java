@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -252,5 +253,57 @@ public class LopDAOImpl implements LopDAO{
 		
 		return rowInsert;
 	}
+	public static int CountRow() {
+		
+		int count = 0;
+		Connection conn = DBConnect.getConnection();
+
+		String sql = "select count(*) from Lop";
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			count = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	public static List<Lop> DisplayLop(int start, int count) {
+		Connection conn = DBConnect.getConnection();
+		List<Lop> list = new ArrayList<Lop>();
+
+		String sql = "select * from lop where TrangThai=1 limit " + (start) + ", " + count;
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) 
+			{
+				Lop lop = new Lop();
+				lop.setMaLop(rs.getString("MaLop"));
+				lop.setMaPH(rs.getString("MaPH"));
+				lop.setLopDay(rs.getString("LopDay"));
+				lop.setMonDay(rs.getString("MonDay"));
+				lop.setSoBuoi(rs.getInt("SoBuoi"));
+				lop.setSoLuongHS(rs.getInt("SoLuongHS"));
+				lop.setHocLucHienTai(rs.getString("HocLucHienTai"));
+				lop.setThoiGianDay(rs.getString("ThoiGianDay"));
+				lop.setDiaChi(rs.getString("DiaChi"));
+				lop.setLuong(rs.getFloat("Luong"));
+				lop.setMucPhi(rs.getFloat("MucPhi"));
+				lop.setYeuCau(rs.getString("YeuCau"));
+				lop.setTrangThai(rs.getInt("TrangThai"));
+
+				list.add(lop);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 
 }

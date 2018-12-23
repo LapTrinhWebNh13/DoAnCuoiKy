@@ -96,7 +96,7 @@
 						<option value="Lớp 11">Lớp 11</option>
 						<option value="Lớp 12">Lớp 12</option>
 						<option value="Lớp ngoại ngữ">Lớp ngoại ngữ</option>
-						<option value="Lớp tin học">Lớp ngoại ngữ</option>
+						<option value="Lớp tin học">Lớp tin học</option>
 						<option value="Ôn đại học">Ôn đại học</option>
 						<option value="Lớp năng khiếu">Lớp năng khiếu</option>
 					</select>
@@ -205,7 +205,7 @@
 						<option value="Lớp 11">Lớp 11</option>
 						<option value="Lớp 12">Lớp 12</option>
 						<option value="Lớp ngoại ngữ">Lớp ngoại ngữ</option>
-						<option value="Lớp tin học">Lớp ngoại ngữ</option>
+						<option value="Lớp tin học">Lớp tin học</option>
 						<option value="Ôn đại học">Ôn đại học</option>
 						<option value="Lớp năng khiếu">Lớp năng khiếu</option>
 					</select>
@@ -242,7 +242,7 @@
 					<input type="text" name="txtThoiGian" id="thoigianhoc" placeholder="Ví dụ: T2-T4-T6; 17h-19h" required value="<%=lop.getThoiGianDay() %>">
 				</div>
 				<div class="row">
-					<label for="thoigianhoc">Địa chỉ (<span class="red">*</span>)</label> 
+					<label for="diachi">Địa chỉ (<span class="red">*</span>)</label> 
 					<input type="text" name="txtDiaChi" id="thoigianhoc" placeholder="Ví dụ: 01-Võ Văn Ngân- Thủ Đức- TPHCM" required value="<%=lop.getDiaChi() %>">
 				</div>
 				<div class="row">

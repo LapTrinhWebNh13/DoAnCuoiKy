@@ -1,4 +1,5 @@
 @charset "utf-8";
+
 body
 {
     width: 90%;
@@ -31,35 +32,35 @@ p.text
     color: #3333FF;
     font-size: 15px;
 }
-.tab {
-    overflow: hidden;
+.nav {
+    /* overflow: hidden; */
+    /* border: 1px solid #ccc; */
+   background-color: #F7CD20;
     width: 700px;
-    border: 1px solid #ccc;
-    background-color: #F7CD20;
 }
 
 /* Style the buttons inside the tab */
-.tab button {
+.nav button {
     background-color: inherit;
     float: left;
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
+    /* padding: 14px 16px; */
+    /* transition: 0.3s; */
     font-size: 17pxs;
 }
 
 /* Change background color of buttons on hover */
-.tab button:hover {
-    background-color: #ED1C24;
+.nav button:hover {
     color: white;
+     background-color: #ED1C24;
 }
 
 /* Create an active/current tablink class */
-.tab button.active {
-    background-color: #ED1C24;
-    color: white;
+.nav button.active {
+     color: white;
+     background-color: #ED1C24;
 }
 
 /* Style the tab content */
@@ -72,9 +73,8 @@ p.text
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 95%;margin-left: 20px;
 }
-
 td {
     border: 1px solid #dddddd;
     text-align: left;
@@ -103,13 +103,58 @@ tr:hover
     color: crimson;
     font-style: italic;
 }
-/* input[type="text"] {
-      width: 50%;
-      box-sizing: border-box;
-      border: 1px solid black;
-      border-radius: 4px;
-      outline:none;
-      padding: 12px 14px;
-      margin-left: 200px;
-      margin-top: 50px;
-    } */
+
+input[type=text], [type=password], textarea {
+    width: 60%;
+    padding: 4px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+input[type=text], [type=password], select, textarea{
+	border-radius: 4px;
+}
+input[type=file] {
+    display: INLINE;
+}
+input[type="range"] {
+  display: INLINE;
+  width: 100%;
+}
+select{
+	height: 30px;
+	width: 150px;
+}
+/* form styles */
+form .row {
+  display: block;
+  padding: 1px 10px;
+  margin-bottom: 4px;
+}
+form label {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  width: 220px;
+  padding-top: 6px;
+  padding-bottom: 4px;
+  padding-left: 40px; 
+  color: #464646;
+  vertical-align: top;
+}
+form .red { color: red; }
+input[type=submit] {
+    background-color: orange;
+    color: white;
+	height: 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  
+}
+form .linkgiasu{
+	margin-left: 223px;
+}
+form .submit{
+	margin-right: 200px;
+}

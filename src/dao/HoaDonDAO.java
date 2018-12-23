@@ -2,6 +2,8 @@ package dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+
 import model.HoaDon;
 import model.LopDK;
 
@@ -18,4 +20,7 @@ public interface HoaDonDAO {
 	
 	//them hoa don
 	public boolean themHoaDon(HoaDon hd) throws SQLException;
+	
+	//tim kiem hoa don theo ngay
+	public ArrayList<HoaDon> getHoaDonTheoNgay(String ngay) throws SQLException;
 }

@@ -9,7 +9,7 @@
 	<%@ page import = "dao.LopDAOImpl" %>
 	<%@ page import = "model.Lop" %>
 	<%@ page import = "java.util.*" %>
-	<title>LOPMOICHUAGIAO</title>
+	<title>GiaSu</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -144,73 +144,43 @@
 			<div class="col-lg-9">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<p style="margin-left: 50px;color: white;font-weight: bold;font-size: 16px">LỚP MỚI CHƯA GIAO</p>
+						<p style="margin-left: 50px;color: white;font-weight: bold;font-size: 16px">DANH SÁCH CÁC GIA SƯ</p>
 					</div>
 					<div class="panel-body">
-						<div class="row">
-							<h4 style="text-align: center; font-weight: 400;">LỚP ĐANG CẦN GIA SƯ - TRUNG TÂM GIA SƯ TRÍ VIỆT</h4>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-3 col-md-3 col-sm-3"></div>
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<input type="text" id="txtTimLop" placeholder="Tìm kiếm...">
-								<input type="submit" name="tim" value="Tìm kiếm">
+					<c:forEach items="${listGiaSu }" var="list">
+					
+						<div class="col-sm-6">
+								<ul class="list-group">
+								  <li class="list-group-item active" >MÃ GS: ${list.maGS }</li>
+								  <li class="list-group-item">
+								  	<img src="./ImageServlet?command=GiaSu&maGS=${list.maGS }" style="width: 100px; float: left">
+								    <h5><b>Họ và tên:</b> ${list.hoTen }</h5>
+								    <h5><b>Ngày sinh:</b> ${list.ngaySinh }</h5>
+								    <h5><b>Giới tính:</b> ${list.gioiTinh } </h5>
+								    <h5><b>Giọng nói:</b> ${list.giongNoi } </h5>
+								    <h5><b>Nghề nghiệp:</b> ${list.ngheNghiep }</h5>
+								    <h5><b>Trình độ:</b> ${list.trinhDo }</h5>
+								    <h5><b>Ngành học:</b> ${list.nganhHoc }</h5>
+								    <h5><b>Lớp dạy:</b> ${list.lopDay }</h5>
+								    <h5><b>Môn dạy:</b> ${list.monDay }</h5>
+								    <h5><b>Lương yêu cầu tối thiểu:</b> ${list.luongYauCauToiThieu }</h5>
+								    <br>
+								  </li>
+								</ul>
 							</div>
-							<div class="col-lg-3 col-md-3 col-sm-3"></div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-2 col-md-2 col-sm-2"></div>
-							
-							<div class="col-lg-2 col-md-2 col-sm-2"></div>
-							
-						</div>
-						<p>Page: ${numberpage }</p>
-						
-						<div class="row">
-							<table class="danhsach" style=" font-family: arial, sans-serif;border-collapse: collapse;width: 100%;">
-							
-								<tr>
-								    <th>Mã lớp</th>
-								    <th>Địa chỉ</th>
-								    <th>Thời gian</th>
-								    <th>Người học</th>
-								    <th>Lớp dạy</th>
-								    <th>Môn dạy</th>
-								    <th>Lương</th>
-								    <th>Đăng kí</th>
-								  </tr>
-							
-							<c:forEach items="${listLop}"  var="list">
-								<tbody id="tableLop">
-								<tr>
-									<td>${list.maLop }</td>
-									<td>${list.diaChi }</td>
-									<td>${list.thoiGianDay }</td>
-									<td>${list.hocLucHienTai }</td>
-									<td>${list.lopDay }</td>
-									<td>${list.monDay }</td>
-									<td>${list.luong }</td>
-									<td><a href="DangKyNhanLop.jsp?command=DKLop&maLop=${list.maLop }"> <img src="image/icon-dang-ky.png"></a></td>
-								</tr>
-								</tbody>
-							</c:forEach>
-							</table>
-						</div>
+					</c:forEach>
 						
 					</div>
-				</div>
 				<center>
 					<ul class="pagination">
 						<%
-							int count =20;
-							int sumRow = LopDAOImpl.CountRow();
+							int count =12;
+							int sumRow = GiaSuDAOImpl.CountRow();
 							int maxpageid= (sumRow/count)+1;
 							for(int i=1;i<=maxpageid;i++)
 							{
 						%>
-							<li><a href="PageServlet?command=LopMoi&pageID=<%=i %>"><%=i %></a></li>
+							<li><a href="PageServlet?command=GiaSu&pageID=<%=i %>"><%=i %></a></li>
 						<%
 							}
 						%>

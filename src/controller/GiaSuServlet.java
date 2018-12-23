@@ -5,9 +5,8 @@ import java.io.InputStream;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,12 +15,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import connect.DBConnect;
 import dao.GiaSuDAOImpl;
-import model.GiaSu;
+
 
 
 @WebServlet("/GiaSuServlet")
@@ -65,9 +63,9 @@ public class GiaSuServlet extends HttpServlet {
 			case "delete":
 				deleteGiaSu(request, response);
 				break;
-			case "search":
+			/*case "search":
 				searchGiaSu(request, response);
-				break;
+				break;*/
 			case "detail":
 				String mags=request.getParameter("maGS");
 				response.sendRedirect("ChiTietGS.jsp?maGS="+mags);
@@ -88,7 +86,7 @@ public class GiaSuServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	public void searchGiaSu(HttpServletRequest request, HttpServletResponse response) throws IOException
+	/*public void searchGiaSu(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
@@ -99,8 +97,8 @@ public class GiaSuServlet extends HttpServlet {
 		ArrayList<GiaSu> dsLocGS = new GiaSuDAOImpl().locDanhSach(ten);
 		if(ten.equals("") || ten==null)
 		{
-			/*dsLocGS = new GiaSuDAOImpl().getListGiaSu();
-			session.setAttribute("dsGiaSu", dsLocGS);*/
+			dsLocGS = new GiaSuDAOImpl().getListGiaSu();
+			session.setAttribute("dsGiaSu", dsLocGS);
 			response.sendRedirect("TrangAdmin.jsp");
 		}
 		else
@@ -109,12 +107,9 @@ public class GiaSuServlet extends HttpServlet {
 			response.sendRedirect("TrangAdmin.jsp");
 		}
 		
-	}
+	}*/
 	
-	public void insertTaiKhoan(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-	{
-		
-	}
+
 	
 	public void insertGiaSu(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
 	{

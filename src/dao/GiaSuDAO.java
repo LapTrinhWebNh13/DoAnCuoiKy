@@ -27,4 +27,7 @@ public interface GiaSuDAO {
 	
 	//lay cac lop da day
 	public ArrayList<Lop> getLopDaDay(String mags);
+	
+	//lay danh sach gia su dang ky nhan lop
+	public ArrayList<GiaSu> getDSGiaSuDKNhanLop(String malop);
 }

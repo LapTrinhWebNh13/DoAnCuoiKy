@@ -14,6 +14,141 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  	<link rel="stylesheet" type="text/css" href="css/CSS_ThemPH.css">
+ 	
+ 	<script>
+		$(document).ready(function()
+		{
+			function validateEmail(sEmail)
+			{
+	   			 var filter = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	   			
+	   			 if(filter.test(sEmail))
+	   			 {
+	   				return true;
+	   			 }
+	   			 return false;
+			}
+			
+			function validateSDT(sdt)
+			{
+				var filter = /^[0-9]+$/;
+				
+	   			 if(filter.test(sdt) && sdt.length>=10 && sdt.length<12)
+	   			 {
+	   				return true;
+	   			 }
+	   			 return false;
+	   			 
+			}
+			
+			function validatePassword(str)
+			{
+				var message ="";
+				var passwordRegex = /[a-z]/g; //chua ky tu thuong
+				var passwordRegex2 = /[A-Z]/g;//chua ky tu hoa
+				var passwordRegex3 = /[0-9]/g;//chua so
+				if(str.match(passwordRegex) && str.match(passwordRegex2) && str.match(passwordRegex3) && str.length >6)
+				{
+					return true;
+				}
+				return false;
+			}
+			
+			$('#FormDKTGS').bind({
+				'submit':function()
+				{
+					if(!validateEmail($('#email').val())){
+						$('#error_mail').html('Email bạn nhập không hợp lệ. Vui lòng nhập lại!!');
+						return false;
+					}
+					if(!validatePassword($('#password').val())){
+						$('#error_pass').html('Mật khẩu phải ít nhất 6 ký tự, bao gồm chữ hoa và chữ thường!!');
+						return false;
+					} 
+					
+					if(!validateSDT($('#sodienthoai').val())){
+						$('#error_sdt').html('Số điện thoại bạn nhập không hợp lệ. Vui lòng nhập lại!!');
+						return false;
+					} 
+					if(!validatePassword($('#tendangnhap').val())){
+						$('#error_tendn').html('Tên đăng nhập phải có ít nhất 6 ký tự, bao gồm chữ hoa, chữ thường và số. Vui lòng nhập lại!!');
+						return false;
+					} 
+					return true;
+				},
+				'change':function()
+				{
+					$('#password').change(function() {
+						if(!validatePassword($('#password').val())){
+							$('#error_pass').html('Mật khẩu phải ít nhất 6 ký tự, bao gồm chữ hoa và chữ thường!!');
+						}
+						else{
+							$('#error_pass').html('');
+						}
+					});
+					
+					$('#email').change(function() {
+						if(!validateEmail($('#email').val())){
+							$('#error_mail').html('Email bạn nhập không hợp lệ. Vui lòng nhập lại!!');
+						}
+						else{
+							$('#error_mail').html('');
+						}
+					});
+					
+					$('#sodienthoai').change(function() {
+						if(!validateSDT($('#sodienthoai').val())){
+							$('#error_sdt').html('Số điện thoại bạn nhập không hợp lệ. Vui lòng nhập lại!!');
+						}
+						else{
+							$('#error_sdt').html('');
+						}
+					});
+					$('#tendangnhap').change(function() {
+						if(!validatePassword($('#tendangnhap').val())){
+							$('#error_tendn').html('Tên đăng nhập phải có ít nhất 6 ký tự, bao gồm chữ hoa, chữ thường và số. Vui lòng nhập lại!!');
+						} 
+						else{
+							$('#error_tendn').html('');
+						}
+					});
+				}
+			});
+		});
+
+</script>
+
+<script language="Javascript" type="text/javascript">
+            function createRequestObject() {
+                var tmpXmlHttpObject;
+
+                if (window.XMLHttpRequest) {
+                    tmpXmlHttpObject = new XMLHttpRequest();
+
+                } else if (window.ActiveXObject) {
+                    tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+                return tmpXmlHttpObject;
+            }
+            var http = createRequestObject();
+            function makeGetRequest(wordId) {
+                var wordId = document.forms["DKTGS"]["txtTenDangNhap"].value;
+                http.open('get', 'existTenDangNhap.jsp?command=new&txtTenDangNhap=' + wordId);
+                http.onreadystatechange = processResponse;
+                http.send(null);
+            }
+
+            function processResponse() {
+                if (http.readyState == 4 && http.status == 200) {
+                    var response = http.responseText;
+                    document.getElementById("description").style.color = "red";
+                    
+                    document.getElementById('description').innerHTML = '<center><strong><span>'+response+'</span></strong></center>';
+                }
+
+            }
+        </script>
 </head>
 <body>
 
@@ -52,21 +187,11 @@
 	<a href="#" style="margin-left: 20px;color: white" >Đổi mật khẩu</a>
 	<div id="menu" style="  background-color: #dddddd;margin-left: 50px;margin-top: 10px">
 		<div id ="main" style="background-color: white">
-		<div class="tab">
-		  <button class="tablinks" onclick="openCity(event, 'Phụ Huynh')" id="defaultOpen">PHỤ HUYNH</button>
-		  <button class="tablinks" onclick="openCity(event, 'Gia Sư')">GIA SƯ</button>
-		  <button class="tablinks" onclick="openCity(event, 'Lớp Học')">LỚP HỌC</button>
-		  <button class="tablinks" onclick="openCity(event, 'Lệ Phí')">LỆ PHÍ</button>
-		  <button class="tablinks" onclick="openCity(event, 'Tài Khoản')">TÀI KHOẢN</button>
-		  <button class="tablinks" onclick="openCity(event, 'Doanh Thu')">DOANH THU</button>
-		  <button class="tablinks" onclick="openCity(event, 'Đăng Tin')">ĐĂNG TIN</button>
-		</div>
-		<div id="Phụ Huynh" class="tabcontent">
-			<h3 style="margin-left: 300px;font-size: 30px;float: left;">Thêm thông tin phụ huynh</h3>
-			 <button style="margin-left: 350px;margin-top:20px">
-		  	<a href="TrangAdmin.jsp">Trở lại</a>
-		  </button>
-		 
+		<br>
+		<h3 style="margin-left: 300px;font-size: 30px;">Thêm thông tin phụ huynh</h3>
+		<div>
+			
+			
 		  
 		  <div class="panel-body" style="margin-left: 100px">
 		  <%
@@ -79,8 +204,7 @@
 		  			<form action="PhuHuynhServlet?command=insert&maPH=<%=maPH %>" name="DKTGS" id="FormDKTGS" method="post">
 		  				<div class="row">
 								<label for="hoten">Họ tên (<span class="red">*</span>)
-								</label> <input type="text" name="txtHoTen" id="name"
-									placeholder="Nguyễn Văn A" required >
+								</label> <input type="text" name="txtHoTen" id="name"placeholder="Nguyễn Văn A" required >
 							</div>
 							<div class="row">
 								<label for="diachi">Địa chỉ (<span class="red">*</span>)
@@ -88,23 +212,29 @@
 									placeholder="Phường 13, Q.Tân Bình, TP.HCM" required >
 							</div>
 							<div class="row">
-								<label for="dienthoai">Điện thoại (<span class="red">*</span>)
-								</label> <input type="text" name="txtDienThoai" id="dienthoai"
-									placeholder="0923456723" required maxlength="11">
+								<label for="dienthoai">Điện thoại (<span class="red">*</span>)</label>							
+								<input type="text" name="txtDienThoai" id="sodienthoai" placeholder="0923456723" required maxlength="11">
+								<center><strong><span class="red" id="error_sdt"></span></strong></center>
+								
 							</div>
 							<div class="row">
-								<label for="email">Email (<span class="red">*</span>)
-								</label> <input type="text" name="txtEmail" id="email"
-									placeholder="abc@gmail.com" required >
+								<label for="email">Email (<span class="red">*</span>)</label> 
+								<input type="text" name="txtEmail" id="email" placeholder="abc@gmail.com" required >
+								<center><strong><span class="red" id="error_mail"></span></strong></center>
+								
 							</div>
 							<h4 style="text-align: center">TẠO TÀI KHOẢN LOGIN</h4>
 							<div class="row">
-								<label for="diachi">Tên đăng nhập (<span class="red">*</span>)</label> 
-								<input name="txtTenDangNhap" type="text" required >
+								<label for="diachi">Tên đăng nhập (<span class="red">*</span>)</label>
+								<input type="text" name="txtTenDangNhap" id="tendangnhap" onblur="makeGetRequest()" required/><br>
+								<div id="description"></div>
+								<center><strong><span class="red" id="error_tendn"></span></strong></center>
 							</div>
 							<div class="row">
 								<label for="diachi">Mật khẩu (<span class="red">*</span>)</label> 
-								<input name="txtMatKhau" type="text" required >
+								<input name="txtMatKhau" type="password" required  id="password">
+								<center><strong><span class="red" id="error_pass"></span></strong></center>
+								
 							</div>
 							<div class="submit">
 								<input type="submit" value="LƯU">
@@ -124,18 +254,17 @@
 							</div>
 							<div class="row">
 								<label for="diachi">Địa chỉ (<span class="red">*</span>)
-								</label> <input type="text" name="txtDiaChi" id="diachi"
-									placeholder="Phường 13, Q.Tân Bình, TP.HCM" required value="<%=ph.getDiaChi() %>">
+								</label> <input type="text" name="txtDiaChi" id="diachi" placeholder="Phường 13, Q.Tân Bình, TP.HCM" required value="<%=ph.getDiaChi() %>">
 							</div>
 							<div class="row">
-								<label for="dienthoai">Điện thoại (<span class="red">*</span>)
-								</label> <input type="text" name="txtDienThoai" id="dienthoai"
-									placeholder="0923456723" required maxlength="11" value="<%=ph.getDienThoai() %>">
+								<label for="dienthoai">Điện thoại (<span class="red">*</span>)</label> 
+								<input type="text" name="txtDienThoai" id="sodienthoai" placeholder="0923456723" required maxlength="11" value="<%=ph.getDienThoai() %>">
+								<center><strong><span class="red" id="error_sdt"></span></strong></center>
 							</div>
 							<div class="row">
-								<label for="email">Email (<span class="red">*</span>)
-								</label> <input type="text" name="txtEmail" id="email"
-									placeholder="abc@gmail.com" required value="<%=ph.getEmail() %>">
+								<label for="email">Email (<span class="red">*</span>)</label> 
+								<input type="text" name="txtEmail" id="email" placeholder="abc@gmail.com" required value="<%=ph.getEmail() %>">
+								<center><strong><span class="red" id="error_mail"></span></strong></center>
 							</div>
 							<div class="submit">
 								<input type="submit" value="LƯU">
@@ -146,234 +275,13 @@
 		  		}
   			%>						
 						
-						</div>
 		</div>
-		<div id="Gia Sư" class="tabcontent">
-		  <h3 style="margin-left: 300px;font-size: 30px;float: left;">Quản lý thông tin gia sư</h3>
-		  <button style="margin-left: 230px;margin-top:20px">Thêm GS</button>
-				<table>
-					<tr>
-					    <th>Mã GS</th>
-					    <th>Họ tên</th>
-					    <th>Ngày sinh</th>
-					    <th>Giới tính</th>
-					    <th>Địa chỉ</th>
-					    <th>Tên TK</th>
-					    <th>Số ĐT</th>
-					    <th>Email</th>
-					    <th>Xóa</th>
-					    <th>Sửa </th>
-					  </tr>
-					  <tr>
-					    <td>100</td>
-					    <td>Ngô Hoàng Yến</td>
-					    <td>1/1/1998</td>
-					    <td>Nữ</td>
-					    <td>Quận 2</td>
-					    <td>Yenhn</td>
-					    <td>01634424318</td>
-					    <td>yenhn@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>101</td>
-					    <td>Tô Uyển Nhi</td>
-					    <td>15/5/1993</td>
-					    <td>Nữ</td>
-					    <td>Quận Thủ Đức</td>
-					    <td>nhivit</td>
-					    <td>0765445678</td>
-					    <td>phucdiem@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>102</td>
-					    <td>Trương Hoàng Ngiệp</td>
-					    <td>2/9/1997</td>
-					    <td>Nam</td>
-					    <td>Quận Tân Bình</td>
-					    <td>An98Tr</td>
-					    <td>01632235318</td>
-					    <td>an98tr@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>103</td>
-					    <td>Hoàng An</td>
-					    <td>1/1/1996</td>
-					    <td>Nam</td>
-					    <td>Quận 9</td>
-					    <td>AnhoangNg</td>
-					    <td>016344453432</td>
-					    <td>hoanghaong@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>104</td>
-					    <td>Trần Minh Tuấn</td>
-					    <td>12/12/1996</td>
-					    <td>Nam</td>
-					    <td>Quận Củ Chi</td>
-					    <td>TuanTranVa</td>
-					    <td>01634354358</td>
-					    <td>tranMinhTuan@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>105</td>
-					    <td>Nguyễn Thị Kim Dung</td>
-					    <td>1/3/1998</td>
-					    <td>Nữ</td>
-					    <td>Quận 2</td>
-					    <td>kkimdung</td>
-					    <td>0145345232418</td>
-					    <td>dungit@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-		  				</tr>
-				</table>
-		</div>
-		<div id="Lớp Học" class="tabcontent">
-		  <h3 style="margin-left: 300px;font-size: 30px;float: left;">Quản lý thông tin gia sư</h3>
-		  <button style="margin-left: 230px;margin-top:20px">Thêm PH</button>
-				<table>
-					<tr>
-					    <th>Mã lớp</th>
-					    <th>Mã GS</th>
-					    <th>Địa chỉ</th>
-					    <th>Thời gian</th>
-					    <th>Người học</th>
-					    <th>Lớp dạy</th>
-					    <th>Môn dạy</th>
-					    <th>Lương</th>
-					    <th>Trạng thái</th>
-					    <th>Sửa </th>
-					  </tr>
-					  <tr>
-					    <td>100</td>
-					    <td>102</td>
-					    <td>Quận 9</td>
-					    <td>17h-20h các ngày</td>
-					    <td>2 bé nam học khá</td>
-					    <td>Lớp 6</td>
-					    <td>Toán Lý</td>
-					    <td>1.200.000 đồng</td>
-					    <td>Đã nhận</td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>101</td>
-					    <td>Tô Uyển Nhi</td>
-					    <td>15/5/1993</td>
-					    <td>Nữ</td>
-					    <td>Quận Thủ Đức</td>
-					    <td>nhivit</td>
-					    <td>0765445678</td>
-					    <td>phucdiem@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>102</td>
-					    <td>Trương Hoàng Ngiệp</td>
-					    <td>2/9/1997</td>
-					    <td>Nam</td>
-					    <td>Quận Tân Bình</td>
-					    <td>An98Tr</td>
-					    <td>01632235318</td>
-					    <td>an98tr@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>103</td>
-					    <td>Hoàng An</td>
-					    <td>1/1/1996</td>
-					    <td>Nam</td>
-					    <td>Quận 9</td>
-					    <td>AnhoangNg</td>
-					    <td>016344453432</td>
-					    <td>hoanghaong@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>104</td>
-					    <td>Trần Minh Tuấn</td>
-					    <td>12/12/1996</td>
-					    <td>Nam</td>
-					    <td>Quận Củ Chi</td>
-					    <td>TuanTranVa</td>
-					    <td>01634354358</td>
-					    <td>tranMinhTuan@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-					  </tr>
-					  <tr>
-					    <td>105</td>
-					    <td>Nguyễn Thị Kim Dung</td>
-					    <td>1/3/1998</td>
-					    <td>Nữ</td>
-					    <td>Quận 2</td>
-					    <td>kkimdung</td>
-					    <td>0145345232418</td>
-					    <td>dungit@gmail.com</td>
-					    <td><input type="radio" name=""></td>
-					    <td><input type="radio" name=""></td>
-		  				</tr>
-				</table>
-		</div>
-		<div id="Lệ Phí" class="tabcontent">
-		  
-		</div>
-		<div id="Tài Khoản" class="tabcontent">
-	
-		</div>
-		<div id="Doanh Thu" class="tabcontent">
-		  
-		</div>
-		<div id="Đăng Tin" class="tabcontent" style="text-align: center;">
-		  <h2 style="color: #4CAF50; ">Upload tài liệu hoặc tin tức</h2>
-			<form id="myForm">
-			  Chọn một hoặc nhiều file bạn muốn sử dụng 
-			</form>
-			<input type="file" id="myFile" style="margin-left:450px;margin-top: 10px"></br>
-			<button onclick="myFunction()">Upload</button>
-			<p id="demo"></p>
-
-			<script>
-			function myFunction() {
-			    var x = document.getElementById("myFile").form.id;
-			    document.getElementById("demo").innerHTML = x;
-			}
-			</script>
+		
 	</div>
 </div>
-		
-		
 </div>
 
-</body>
-<script type="text/javascript">
-    function openCity(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
 
-	document.getElementById("defaultOpen").click();
-</script>
+</body>
+
 </html>

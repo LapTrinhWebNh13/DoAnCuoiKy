@@ -3,7 +3,7 @@
 
 <html>
 <head>
-	<title>Trang Thêm Phụ Huynh</title>
+	<title>Trang Thêm Gia Sư</title>
 	<%@ page import="dao.GiaSuDAOImpl"%>
 	<%@ page import="model.GiaSu"%>
 	<%@ page import="java.util.Date"%>
@@ -62,16 +62,15 @@
 			if(maGS == null)
 			{
 		%>		
-			<form action="GiaSuServlet?command=insert" id="FormDKTGS" method="post" enctype="multipart/form-data">
+			<form action="GiaSuServlet?command=insert" id="FormDKTGS" name="DKTGS" method="post" enctype="multipart/form-data">
 				<div class="row">
 					<label for="hoten">Họ tên (<span class="red">*</span>)
 					</label> <input type="text" name="txtHoTen" id="name"
 						placeholder="Nguyễn Văn A" required>
 				</div>
 				<div class="row">
-					<label for="hoten">Ngày sinh (<span class="red">*</span>)
-					</label> <select name="txtNgay" style="width: 150px;">
-						<option value="0">Ngày</option>
+					<label for="hoten">Ngày sinh (<span class="red">*</span>)</label> 
+					Ngày: <select name="txtNgay" style="width: 150px;">
 						<%
 							for(int i=1;i<=31;i++){
 						%>
@@ -80,8 +79,8 @@
 							}
 						%>
 					</select> 
-					<select name="txtThang" style="width: 150px;">
-						<option value="0">Tháng</option>
+					Tháng: <select name="txtThang" style="width: 150px;">
+						
 						<%
 							for(int i=1;i<=12;i++){
 						%>
@@ -89,10 +88,11 @@
 						<%
 							}
 						%>
-					</select> <select name="txtNam" id="cbYear" style="width: 150px;">
-						<option value="">Năm</option>
+					</select> 
+					Năm:<select name="txtNam" id="cbYear" style="width: 150px;">
+						 
 						<%
-							for(int i=1950;i<=2018;i++){
+						for(int i=2018;i>1950;i--){
 						%>
 						<option value="<%=i %>"><%=i %></option>
 						<%
@@ -114,12 +114,14 @@
 						placeholder="Phường 13, Q.Tân Bình, TP.HCM" required>
 				</div>
 				<div class="row">
-					<label for="dienthoai">Điện thoại (<span class="red">*</span>)
-					</label> <input type="text" name="txtDienThoai" id="dienthoai"
-						placeholder="0923456723" required maxlength="11"> <label
-						for="email">Email (<span class="red">*</span>)
-					</label> <input type="text" name="txtEmail" id="email"
-						placeholder="abc@gmail.com" required>
+					<label for="dienthoai">Điện thoại (<span class="red">*</span>)</label> 
+					<input type="text" name="txtDienThoai" id="sodienthoai" placeholder="0923456723" required maxlength="11"> 
+					<center><strong><span class="red" id="error_sdt"></span></strong></center>
+				</div>
+				<div class="row">
+					<label for="email">Email (<span class="red">*</span>)</label> 
+					<input type="text" name="txtEmail" id="email" placeholder="abc@gmail.com" required>
+					<center><strong><span class="red" id="error_mail"></span></strong></center>
 				</div>
 
 				<div class="row">
@@ -189,12 +191,15 @@
 				</div>
 				<h4 style="text-align: center">TẠO TÀI KHOẢN LOGIN</h4>
 				<div class="row">
-					<label for="diachi">Tên đăng nhập (<span class="red">*</span>)</label> 
-					<input name="txtTenDangNhap" type="text" required >
+					<label for="diachi">Tên đăng nhập (<span class="red">*</span>)</label>
+					<input type="text" name="txtTenDangNhap" id="tendangnhap" onblur="makeGetRequest()" required/><br>
+					<div id="description"></div>
+					<center><strong><span class="red" id="error_tendn"></span></strong></center>
 				</div>
 				<div class="row">
 					<label for="diachi">Mật khẩu (<span class="red">*</span>)</label> 
-					<input name="txtMatKhau" type="text" required >
+					<input name="txtMatKhau" id="password" type="text" required >
+					<center><strong><span class="red" id="error_pass"></span></strong></center>
 				</div>
 
 				<div class="row">
@@ -219,8 +224,7 @@
 				</div>
 				<div class="row">
 					<label for="hoten">Ngày sinh (<span class="red">*</span>)</label> 
-					<select name="txtNgay" style="width: 150px;">
-						<option>Ngày</option>
+					Ngày:<select name="txtNgay" style="width: 150px;">
 						<%
 							for(int i=1;i<=31;i++){
 						%>
@@ -229,8 +233,7 @@
 							}
 						%>
 					</select> 
-					<select name="txtThang" style="width: 150px;">
-						<option value="0">Tháng</option>
+					Tháng: <select name="txtThang" style="width: 150px;">
 						<%
 							for(int i=1;i<=12;i++){
 						%>
@@ -238,10 +241,10 @@
 						<%
 							}
 						%>
-					</select> <select name="txtNam" id="cbYear" style="width: 150px;">
-						<option value="">Năm</option>
+					</select> 
+					Năm: <select name="txtNam" id="cbYear" style="width: 150px;">
 						<%
-							for(int i=1950;i<=2018;i++){
+							for(int i=2018;i>1950;i--){
 						%>
 						
 						<option value="<%=i %>"><%=i %></option>
@@ -264,9 +267,13 @@
 				</div>
 				<div class="row">
 					<label for="dienthoai">Điện thoại (<span class="red">*</span>)</label> 
-					<input type="text" name="txtDienThoai" id="dienthoai" placeholder="0923456723" required maxlength="11" value="<%=gs.getDienThoai() %>">
+					<input type="text" name="txtDienThoai" id="sodienthoai" placeholder="0923456723" required maxlength="11" value="<%=gs.getDienThoai() %>">
+					<center><strong><span class="red" id="error_sdt"></span></strong></center>
+				</div>
+				<div class="row">
 					<label for="email">Email (<span class="red">*</span>)</label> 
-					<input type="text" name="txtEmail" id="email" placeholder="abc@gmail.com" required value="<%=gs.getEmail() %>">
+					<input type="text" name="txtEmail" id="email" placeholder="abc@gmail.com"  required value="<%=gs.getEmail() %>">
+					<center><strong><span class="red" id="error_mail"></span></strong></center>
 				</div>
 
 				<div class="row">
@@ -360,21 +367,142 @@
 	
 
 </body>
-<script type="text/javascript">
-    function openCity(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
 
-	document.getElementById("defaultOpen").click();
+
+<script>
+		$(document).ready(function()
+		{
+			function validateEmail(sEmail)
+			{
+	   			 var filter = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	   			
+	   			 if(filter.test(sEmail))
+	   			 {
+	   				return true;
+	   			 }
+	   			 return false;
+			}
+			
+			function validateSDT(sdt)
+			{
+				var filter = /^[0-9]+$/;
+				
+	   			 if(filter.test(sdt) && sdt.length>=10 && sdt.length<12)
+	   			 {
+	   				return true;
+	   			 }
+	   			 return false;
+	   			 
+			}
+			
+			function validatePassword(str)
+			{
+				var message ="";
+				var passwordRegex = /[a-z]/g; //chua ky tu thuong
+				var passwordRegex2 = /[A-Z]/g;//chua ky tu hoa
+				var passwordRegex3 = /[0-9]/g;//chua so
+				if(str.match(passwordRegex) && str.match(passwordRegex2) && str.match(passwordRegex3) && str.length >6)
+				{
+					return true;
+				}
+				return false;
+			}
+			
+			
+			$('#FormDKTGS').bind({
+				'submit':function()
+				{
+					if(!validateEmail($('#email').val())){
+						$('#error_mail').html('Email bạn nhập không hợp lệ. Vui lòng nhập lại!!');
+						return false;
+					}
+					if(!validatePassword($('#password').val())){
+						$('#error_pass').html('Mật khẩu phải ít nhất 6 ký tự, bao gồm chữ hoa và chữ thường!!');
+						return false;
+					} 
+					
+					if(!validateSDT($('#sodienthoai').val())){
+						$('#error_sdt').html('Số điện thoại bạn nhập không hợp lệ. Vui lòng nhập lại!!');
+						return false;
+					} 
+					if(!validatePassword($('#tendangnhap').val())){
+						$('#error_tendn').html('Tên đăng nhập phải có ít nhất 6 ký tự, bao gồm chữ hoa, chữ thường và số. Vui lòng nhập lại!!');
+						return false;
+					} 
+					return true;
+				},
+				'change':function()
+				{
+					$('#password').change(function() {
+						if(!validatePassword($('#password').val())){
+							$('#error_pass').html('Mật khẩu phải ít nhất 6 ký tự, bao gồm chữ hoa, chữ thường và số. Vui lòng nhập lại!!');
+						}
+						else{
+							$('#error_pass').html('');
+						}
+					});
+					
+					$('#email').change(function() {
+						if(!validateEmail($('#email').val())){
+							$('#error_mail').html('Email bạn nhập không hợp lệ. Vui lòng nhập lại!!');
+						}
+						else{
+							$('#error_mail').html('');
+						}
+					});
+					
+					$('#sodienthoai').change(function() {
+						if(!validateSDT($('#sodienthoai').val())){
+							$('#error_sdt').html('Số điện thoại bạn nhập không hợp lệ. Vui lòng nhập lại!!');
+						}
+						else{
+							$('#error_sdt').html('');
+						}
+					});
+					$('#tendangnhap').change(function() {
+						if(!validatePassword($('#tendangnhap').val())){
+							$('#error_tendn').html('Tên đăng nhập phải có ít nhất 6 ký tự, bao gồm chữ hoa, chữ thường và số. Vui lòng nhập lại!!');
+						} 
+						else{
+							$('#error_tendn').html('');
+						}
+					});
+				}
+			});
+		});
+
 </script>
+
+<script language="Javascript" type="text/javascript">
+            function createRequestObject() {
+                var tmpXmlHttpObject;
+
+                if (window.XMLHttpRequest) {
+                    tmpXmlHttpObject = new XMLHttpRequest();
+
+                } else if (window.ActiveXObject) {
+                    tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+                return tmpXmlHttpObject;
+            }
+            var http = createRequestObject();
+            function makeGetRequest(wordId) {
+                var wordId = document.forms["DKTGS"]["txtTenDangNhap"].value;
+                http.open('get', 'existTenDangNhap.jsp?command=new&txtTenDangNhap=' + wordId);
+                http.onreadystatechange = processResponse;
+                http.send(null);
+            }
+
+            function processResponse() {
+                if (http.readyState == 4 && http.status == 200) {
+                    var response = http.responseText;
+                    document.getElementById("description").style.color = "red";
+                    
+                    document.getElementById('description').innerHTML = '<center><strong><span>'+response+'</span></strong></center>';
+                }
+
+            }
+        </script>
+
 </html>

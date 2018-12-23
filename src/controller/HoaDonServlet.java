@@ -5,15 +5,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import connect.DBConnect;
 import dao.HoaDonDAOImpl;
 import model.HoaDon;
+
 
 
 @WebServlet("/HoaDonServlet")
@@ -41,6 +44,10 @@ public class HoaDonServlet extends HttpServlet {
 			case "delete":
 				deleteHoaDon(request, response);
 				break;
+			/*case "search":
+				searchHoaDon(request, response);
+				response.sendRedirect("TrangAdmin.jsp");
+				break;*/
 			default:
 				break;
 			}
@@ -88,4 +95,29 @@ public class HoaDonServlet extends HttpServlet {
 		ps.executeUpdate();		
 		conn.close();
 	}
+	/*public void searchHoaDon(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException 
+	{
+		
+		System.out.println(request.getParameter("txtTimKiem"));
+		String ngay =request.getParameter("txtTimKiem");
+		
+		
+		
+		HttpSession session = request.getSession();
+		//ArrayList<Lop> dsLop = new LopDAOImpl().getListLop();
+		ArrayList<HoaDon> dsLocHD = new HoaDonDAOImpl().getHoaDonTheoNgay(ngay);
+		if(ngay.equals("") || ngay==null)
+		{
+			dsLocLop = new LopDAOImpl().getListLop();
+			session.setAttribute("dsLop", dsLocLop);
+			session.setAttribute("dsHD", dsLocHD);
+			response.sendRedirect("TrangAdmin.jsp");
+		}
+		else
+		{
+			session.setAttribute("dsLocHD", dsLocHD);
+			response.sendRedirect("TrangAdmin.jsp");
+		}
+		
+	}*/
 }

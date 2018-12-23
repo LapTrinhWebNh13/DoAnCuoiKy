@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import connect.DBConnect;
 import dao.LopDAOImpl;
@@ -56,9 +56,9 @@ public class LopServlet extends HttpServlet {
 			case "delete":
 				deleteLop(request, response);
 				break;
-			case "search":
+			/*case "search":
 				searchLop(request, response);
-				break;
+				break;*/
 			case "insertLopDK":
 				insertLopDK(request, response);
 				break;
@@ -104,7 +104,7 @@ public class LopServlet extends HttpServlet {
 	}
 	
 	public void insertLopDK(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 		String mags = layMaGS(request,response);
 		LopDK lopdk = new LopDK();
 
@@ -118,7 +118,8 @@ public class LopServlet extends HttpServlet {
 		
 		lopDAO.themDangKyLop(lopdk);
 
-		response.sendRedirect("LopMoiChuaGiao.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("PageServlet?command=LopMoi&pageID=1");
+		rd.forward(request, response);
 	}
 	
 	public String layMaGS(HttpServletRequest request, HttpServletResponse response) throws SQLException
@@ -136,7 +137,6 @@ public class LopServlet extends HttpServlet {
 			while(rs.next())
 			{
 				mags=rs.getString("MaTaiKhoan");
-				//gs.setMaGS(rs.getString("MaTaiKhoan"));
 			}
 			conn.close();
 		}
@@ -181,7 +181,7 @@ public class LopServlet extends HttpServlet {
 		response.sendRedirect("TrangAdmin.jsp");
 	}
 	
-	public void searchLop(HttpServletRequest request, HttpServletResponse response) throws IOException
+	/*public void searchLop(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
@@ -192,8 +192,8 @@ public class LopServlet extends HttpServlet {
 		ArrayList<Lop> dsLocLop = new LopDAOImpl().locDanhSach(ma);
 		if(ma.equals("") || ma==null)
 		{
-			/*dsLocLop = new LopDAOImpl().getListLop();
-			session.setAttribute("dsLop", dsLocLop);*/
+			dsLocLop = new LopDAOImpl().getListLop();
+			session.setAttribute("dsLop", dsLocLop);
 			session.setAttribute("dsLop", dsLocLop);
 			response.sendRedirect("TrangAdmin.jsp");
 		}
@@ -203,5 +203,6 @@ public class LopServlet extends HttpServlet {
 			response.sendRedirect("TrangAdmin.jsp");
 		}
 		 
-	}
+	}*/
+	
 }

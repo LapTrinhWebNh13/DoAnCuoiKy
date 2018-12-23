@@ -20,6 +20,7 @@ public class HoaDon {
 	private String maGS;
 	private float tienLePhi;
 	private Date thoiGian;
+	//private String thoiGian;
 	
 	public String getMaHD() {
 		return maHD;

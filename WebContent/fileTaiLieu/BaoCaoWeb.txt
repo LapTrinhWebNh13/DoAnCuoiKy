@@ -1,0 +1,24 @@
+﻿phải sử dụng jsp, servlet
+đầy đủ chức năng: 3đ
+với mỗi chức năng, giao diện phải hợp lý:0.5đ
+giao diện đẹp : 2đ
+đưa website lên 1 host, free, quay video màn hình trực tiếp: 0.5đ
+làm theo mô hình 3 lớp
+validation: các field trong các form
+viết báo cáo đầy đủ, rõ ràng: 2đ
+file báo cáo
+1. mô tả đề tài làm gì
+2. phân tích, thiết kế
+- 
+- paper
+- CSDL 
+dán hình có giải thích
+3. mô tả công nghê sử dụng
+servlet, jsp
+mô hình 3 lớp: mục đích, ý nghĩa
+4. vẽ sơ lớp của project
+5. phân công nhiệm vụ, bao nhiêu phần trăm hoàn thành rôi
+đã làm 100% hay chưa
+mỗi thành viên hoàn thành bao nhiêu %
+
+CN tuần 19 nộp bài

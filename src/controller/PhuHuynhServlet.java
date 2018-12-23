@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import dao.PhuHuynhDAOImpl;
 import model.PhuHuynh;
@@ -64,9 +64,9 @@ public class PhuHuynhServlet extends HttpServlet {
 			case "delete":
 				deletePhuHuynh(request, response);
 				break;
-			case "search":
+			/*case "search":
 				searchPhuHuynh(request, response);
-				break;
+				break;*/
 			default:
 				break;
 			}
@@ -78,7 +78,7 @@ public class PhuHuynhServlet extends HttpServlet {
 		
 	}
 	
-	public void searchPhuHuynh(HttpServletRequest request, HttpServletResponse response) throws IOException
+	/*public void searchPhuHuynh(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
@@ -89,8 +89,8 @@ public class PhuHuynhServlet extends HttpServlet {
 		ArrayList<PhuHuynh> dsLocPH = new PhuHuynhDAOImpl().locDanhSach(ten);
 		if(ten.equals("") || ten==null)
 		{
-			/*dsLocPH = new PhuHuynhDAOImpl().getListPhuHuynh();
-			session.setAttribute("dsPhuHuynh", dsLocPH);*/
+			dsLocPH = new PhuHuynhDAOImpl().getListPhuHuynh();
+			session.setAttribute("dsPhuHuynh", dsLocPH);
 			response.sendRedirect("TrangAdmin.jsp");
 		}
 		else
@@ -99,7 +99,7 @@ public class PhuHuynhServlet extends HttpServlet {
 			response.sendRedirect("TrangAdmin.jsp");
 		}
 		
-	}
+	}*/
 
 	public void insertPhuHuynh(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {

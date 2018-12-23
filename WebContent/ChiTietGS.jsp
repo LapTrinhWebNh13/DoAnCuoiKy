@@ -94,6 +94,10 @@
 							<td style="margin-left: 10px;"><%=gs.getDienThoai() %></td>
 						</tr>
 						<tr>
+							<td><b>Email:</b></td>
+							<td style="margin-left: 10px;"><%=gs.getEmail() %></td>
+						</tr>
+						<tr>
 							<td><b>Nghề nghiệp:</b></td>
 							<td style="margin-left: 10px;"><%=gs.getNgheNghiep() %></td>
 						</tr>
@@ -118,7 +122,7 @@
 					</table>
 				</div>
 				<div class="col-lg-2">
-					<img src="./ImageServlet?maGS=<%=request.getParameter("maGS") %>" style="width: 100%">
+					<img src="./ImageServlet?command=GiaSu&maGS=<%=request.getParameter("maGS") %>" style="width: 100%">
 
 				</div>
 				<br>
