@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import connect.DBConnect;
 import model.GiaSu;
@@ -53,7 +54,7 @@ public class HoaDonDAOImpl implements HoaDonDAO{
 	@Override
 	public ArrayList<LopDK> getListDangKy() {
 		Connection conn =DBConnect.getConnection();
-		String sql = "select l.MaLop, l.LopDay, l.YeuCau, gs.MaGS, gs.HoTen, gs.TrinhDo from GIASU gs, LOP l, DANGKY dk where gs.MaGS=dk.MaGS and l.MaLop=dk.MaLop";
+		String sql = "select l.MaLop, l.LopDay, l.YeuCau, l.MonDay, l.DiaChi, l.Luong, gs.MaGS, gs.HoTen, gs.NgheNghiep from GIASU gs, LOP l, DANGKY dk where gs.MaGS=dk.MaGS and l.MaLop=dk.MaLop";
 		ArrayList<LopDK> list =new ArrayList<>();
 		try
 		{
@@ -62,15 +63,17 @@ public class HoaDonDAOImpl implements HoaDonDAO{
 			while(rs.next())
 			{
 				LopDK lopdk = new LopDK();
-				System.out.println("3");
 				Lop lop = new Lop();
 				lop.setMaLop(rs.getString("MaLop"));
 				lop.setLopDay(rs.getString("LopDay"));
 				lop.setYeuCau(rs.getString("YeuCau"));
+				lop.setMonDay(rs.getString("MonDay"));
+				lop.setDiaChi(rs.getString("DiaChi"));
+				lop.setLuong(rs.getFloat("Luong"));
 				GiaSu gs = new GiaSu();
 				gs.setMaGS(rs.getString("MaGS"));
 				gs.setHoTen(rs.getString("HoTen"));
-				gs.setTrinhDo(rs.getString("TrinhDo"));
+				gs.setNgheNghiep(rs.getString("NgheNghiep"));
 				lopdk.setLop(lop);
 				lopdk.setGs(gs);
 				list.add(lopdk);
@@ -140,8 +143,43 @@ public class HoaDonDAOImpl implements HoaDonDAO{
 		}
 		return dsLocHD;
 	}
+	@Override
+	public ArrayList<LopDK> getListDaGiao() {
+		Connection conn =DBConnect.getConnection();
+		String sql = "select l.MaLop, l.LopDay, l.YeuCau, l.MonDay, l.DiaChi, l.Luong, gs.MaGS, gs.HoTen, gs.NgheNghiep from GIASU gs, LOP l, HOADON hd where gs.MaGS=hd.MaGS and l.MaLop=hd.MaLop";
+		ArrayList<LopDK> list =new ArrayList<>();
+		try
+		{
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				LopDK lopdk = new LopDK();
+				Lop lop = new Lop();
+				lop.setMaLop(rs.getString("MaLop"));
+				lop.setLopDay(rs.getString("LopDay"));
+				lop.setYeuCau(rs.getString("YeuCau"));
+				lop.setMonDay(rs.getString("MonDay"));
+				lop.setDiaChi(rs.getString("DiaChi"));
+				lop.setLuong(rs.getFloat("Luong"));
+				GiaSu gs = new GiaSu();
+				gs.setMaGS(rs.getString("MaGS"));
+				gs.setHoTen(rs.getString("HoTen"));
+				gs.setNgheNghiep(rs.getString("NgheNghiep"));
+				lopdk.setLop(lop);
+				lopdk.setGs(gs);
+				list.add(lopdk);
+			}
+			conn.close();
+		}
+		catch (Exception e)
+		{
+
+		}
+		return list;
+	}
 
 	
-	
+
 
 }

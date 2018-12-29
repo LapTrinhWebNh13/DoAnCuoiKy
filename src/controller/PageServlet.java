@@ -50,6 +50,8 @@ public class PageServlet extends HttpServlet {
 			case "GiaSu":
 				phanTrangGiaSu(request, response);
 				break;
+			case "ThongKe":
+				break;
 			default:
 				break;
 			}

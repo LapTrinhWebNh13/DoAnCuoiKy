@@ -15,6 +15,9 @@ public interface HoaDonDAO {
 	//lay danh sach lop co gia su dang ky
 	public ArrayList<LopDK> getListDangKy();
 	
+	//lay danh sach lop da giao
+	public ArrayList<LopDK> getListDaGiao();
+	
 	//xoa hoa don
 	public boolean xoaHoaDon(String mahd) throws SQLException;
 	

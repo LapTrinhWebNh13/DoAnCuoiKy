@@ -2,6 +2,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<%@ page import = "model.TaiLieu" %>
+	<%@ page import = "dao.TaiLieuDAOImpl" %>
+	<%@ page import = "model.TinTuc" %>
+	<%@ page import = "dao.TinTucDAOImpl" %>
+	<%@ page import = "model.LopDK" %>
+	<%@ page import = "dao.HoaDonDAOImpl" %>
+	<%@ page import = "model.HoaDon" %>
+	<%@ page import = "dao.LopDAOImpl" %>
+	<%@ page import = "model.Lop" %>
+	<%@ page import = "dao.GiaSuDAOImpl" %>
+	<%@ page import = "model.GiaSu" %>
+	<%@ page import = "dao.PhuHuynhDAOImpl" %>
+	<%@ page import = "model.PhuHuynh" %>
+	<%@ page import = "java.util.*" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>ThongKeNhanLop</title>
 	<meta charset="utf-8">
@@ -143,30 +157,35 @@
 						</div>
 						<br>
 						<div class="row">
-							<div class="col-lg-3 col-md-3 col-sm-3"></div>
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<form>
-								<input type="text" name="timkiem" placeholder="Nhập mã lớp" required>
-								<input type="submit" name="tim" value="Tìm kiếm">
-								</form>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-3"></div>
-						</div>
-						<br>
-						<div class="row">
 							<div class="col-lg-2 col-md-2 col-sm-2"></div>
 							<div class="col-lg-8 col-md-8 col-sm-8">
-								<button type="button" class="btn btn-success">Đã nhận lớp</button>
-								<button type="button" class="btn" style="background-color: #95E8E9;">Đủ điều kiện</button>
-								<button type="button" class="btn" style="background-color: #FFFAF;">Chờ duyệt</button>
-								<button type="button" class="btn btn btn-warning">Không đạt</button>
-								
+								<div class="input-group">
+									<input type="text" id="txtTim"  class="form-control" name="txtTimKiem" placeholder="Tìm kiếm...">
+									<div class="input-group-btn">
+										<button class="btn btn-default" type="submit" style="font-size: 20px">
+											<i class="glyphicon glyphicon-search"></i>
+										</button>
+									</div>
+								</div>
 							</div>
-							<div class="col-lg-2 col-md-2 col-sm-2"></div>
 							
+							<div class="col-lg-2 col-md-2 col-sm-2"></div>
 						</div>
 						<br>
 						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-4"></div>
+							<div class="col-lg-5 col-md-5 col-sm-5">
+								<button type="button" class="btn btn-success">Đã nhận lớp</button>							
+								<button type="button" class="btn" style="background-color: #FFFAF;">Chờ duyệt</button>
+								
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-3"></div>
+							
+						</div>
+						
+						<br>
+						<div class="row">
+						
 							<table class="table table-bordered">
 								<thead>
 									<tr>
@@ -176,195 +195,49 @@
 										<th>Lớp dạy</th>
 										<th>Địa chỉ</th>
 										<th>Lương</th>
-										<th>Hình thức/lệ phí</th>
 										<th>Trạng thái</th>
 										<th>View</th>
 
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="tableThongKe">
+								<%
+							  		ArrayList<LopDK> dsLopDK = new HoaDonDAOImpl().getListDangKy();
+									for(LopDK lopdk: dsLopDK){
+							  	%>
+									<tr style="background-color: #FFFAF;">
+										<td><%=lopdk.getLop().getMaLop() %></td>
+										<td><img src="./ImageServlet?command=GiaSu&maGS=<%=lopdk.getGs().getMaGS() %>" style="width: 50px; height: 60px;"></td>
+										<td><a href="#" style="color: black"></a><%=lopdk.getGs().getHoTen() %><br>
+										Hiện là: <%=lopdk.getGs().getNgheNghiep() %></td>
+										<td><%=lopdk.getLop().getLopDay() %> - <%=lopdk.getLop().getMonDay() %></td>
+										<td><%=lopdk.getLop().getDiaChi() %></td>
+										<td><%=lopdk.getLop().getLuong() %> VNĐ</td>
+										<td>Chờ duyệt</td>
+										<td><a href="DangKyNhanLop.jsp?command=DKLop&maLop=<%=lopdk.getLop().getMaLop() %>" target="_blank" style="color:black;">Xem</a></td>
+									</tr>
+								<%
+									}
+								%>
+								
+								<%
+							  		ArrayList<LopDK> dsLopDaGiao = new HoaDonDAOImpl().getListDaGiao();
+									for(LopDK lopdk: dsLopDaGiao){
+							  	%>
 									<tr style="background-color: #5CB85C;">
-										<td>5001</td>
-										<td><img src="image/gs1.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 6 - môn toán</td>
-										<td>Quận Tân Bình - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Đã nhận lớp</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
+										<td><%=lopdk.getLop().getMaLop() %></td>
+										<td><img src="./ImageServlet?command=GiaSu&maGS=<%=lopdk.getGs().getMaGS() %>" style="width: 50px; height: 60px;"></td>
+										<td><a href="#" style="color: black"></a><%=lopdk.getGs().getHoTen() %><br>
+										Hiện là: <%=lopdk.getGs().getNgheNghiep() %></td>
+										<td><%=lopdk.getLop().getLopDay() %> - <%=lopdk.getLop().getMonDay() %></td>
+										<td><%=lopdk.getLop().getDiaChi() %></td>
+										<td><%=lopdk.getLop().getLuong() %>k VNĐ</td>
+										<td>Đã giao</td>
+										<td><a href="#" target="_blank" style="color:black;">Xem</a></td>
 									</tr>
-									<tr style="background-color: #95E8E9;">
-										<td>5002</td>
-										<td><img src="image/gs2.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Vũ Thế Hiển</a><br>
-										Hiện là: Nam Sinh Viên</td>
-										<td>Lớp 10 - môn toán</td>
-										<td>Quận 9 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Đủ điều kiện</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color: #FFFAF;">
-										<td>5003</td>
-										<td><img src="image/gs3.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Chờ duyệt</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color: #5CB85C;">
-										<td>5001</td>
-										<td><img src="image/gs4.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Đã nhận lớp</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color: #95E8E9;">
-										<td>5002</td>
-										<td><img src="image/gs2.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Vũ Thế Hiển</a><br>
-										Hiện là: Nam Sinh Viên</td>
-										<td>Lớp 10 - môn toán</td>
-										<td>Quận 9 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Đủ điều kiện</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color: #FFFAF;">
-										<td>5003</td>
-										<td><img src="image/gs3.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Chờ duyệt</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color: #F0AD4E;">
-										<td>5004</td>
-										<td><img src="image/gs4.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Không đạt</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color: #F0AD4E;">
-										<td>5005</td>
-										<td><img src="image/gs2.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Không đạt</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank">Xem</a></td>
-									</tr>
-									<tr style="background-color: #FFFAF;">
-										<td>5006</td>
-										<td><img src="image/gs3.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Chờ duyệt</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color: #FFFAF;">
-										<td>5007</td>
-										<td><img src="image/gs7.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Chờ duyệt</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color:#95E8E9; ">
-										<td>5008</td>
-										<td><img src="image/gs8.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Đủ điều kiện</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color:#95E8E9; ">
-										<td>5008</td>
-										<td><img src="image/gs3.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Đủ điều kiện</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color:#95E8E9; ">
-										<td>5008</td>
-										<td><img src="image/gs3.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Đủ điều kiện</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
-									<tr style="background-color:#95E8E9; ">
-										<td>5008</td>
-										<td><img src="image/gs6.jpg" style="width: 50px; height: 60px;"></td>
-										<td><a href="#" style="color: black">Trần Đan Ngọc</a><br>
-										Hiện là: Nữ Sinh Viên</td>
-										<td>Lớp 1 - môn toán</td>
-										<td>Quận 10 - HCM</td>
-										<td>1,200,000đ</td>
-										<td>Chuyển khoản
-											35%=<span style="color: red;">280,000₫</span> </td>
-										<td>Đủ điều kiện</td>
-										<td><a href="LopDangCanGiaSuMonToanLop6.jsp" target="_blank" style="color:black;">Xem</a></td>
-									</tr>
+								<%
+									}
+								%>
 								</tbody>
 							</table>
 						</div>
@@ -463,4 +336,14 @@
       }
   </script>
 
+<script>
+$(document).ready(function(){
+  $("#txtTim").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#tableThongKe tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
   </html>
