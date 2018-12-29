@@ -183,8 +183,7 @@ public class GiaSuTieuBieu1DAO {
 		return list;
 	}
 	
-	
-		
+
 	
 	
 }

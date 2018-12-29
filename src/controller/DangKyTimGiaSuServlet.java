@@ -2,9 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -31,7 +29,7 @@ public class DangKyTimGiaSuServlet extends HttpServlet {
     public DangKyTimGiaSuServlet() {
         super();
        
-    }
+    } 
 
 
 	public void init(ServletConfig config) throws ServletException {
@@ -61,29 +59,29 @@ public class DangKyTimGiaSuServlet extends HttpServlet {
 		
 		if(!dktgsDAO.kiemTraTenTaiKhoan(tk.getTenDangNhap()))
 		{
-			errormessage += "Tên đăng nhập ";
+			errormessage += "TÃªn Ä‘Äƒng nháº­p ";
 		}
 		else
 		{
 			if(dktgsDAO.kiemTraTenTaiKhoanUnique(tk.getTenDangNhap()))
 			{
-				errormessage += "Tên đăng nhập ";
+				errormessage += "TÃªn Ä‘Äƒng nháº­p ";
 			}
 		}
 		if(!dktgsDAO.kiemTraMatKhau(tk.getMatKhau()))
 		{
-			errormessage += "Mật khẩu ";
+			errormessage += "Máº­t kháº©u ";
 		}
 		
 		if(!dktgsDAO.kiemTraSDTPH(phuhuynh.getDienThoai()))
 		{
-			errormessage += "Số điện thoại ";
+			errormessage += "Sá»‘ Ä‘iá»‡n thoáº¡i ";
 		}
 		else
 		{
 			if(dktgsDAO.kiemTraSDTUnique(phuhuynh.getDienThoai()))
 			{
-				errormessage += "Số điện thoại ";
+				errormessage += "Sá»‘ Ä‘iá»‡n thoáº¡i ";
 			}
 		}
 		
@@ -105,7 +103,7 @@ public class DangKyTimGiaSuServlet extends HttpServlet {
 			try {
 				
 				dktgsDAO.themPhuHuynh(phuhuynh, tk,lop);
-				String errorMessage = "Đăng ký thành công";
+				String errorMessage = "Ä�Äƒng kÃ½ thÃ nh cÃ´ng";
 				String status = "success";
 				showMessage(request,response, errorMessage, status);
 				RequestDispatcher rd = request.getRequestDispatcher("DangNhap.jsp"); 

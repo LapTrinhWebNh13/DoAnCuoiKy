@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.DangKyThemLopDAO;
 import model.Lop;
 import model.TaiKhoan;
-import connect.DBConnect;
+
 
 @WebServlet("/DangKyThemLopServlet")
 public class DangKyThemLopServlet extends HttpServlet {

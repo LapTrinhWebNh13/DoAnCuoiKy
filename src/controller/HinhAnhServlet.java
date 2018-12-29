@@ -44,7 +44,7 @@ public class HinhAnhServlet extends HttpServlet {
 		}
 	}
     public HinhAnhServlet() {
-        super();
+       super();
        
     }
 

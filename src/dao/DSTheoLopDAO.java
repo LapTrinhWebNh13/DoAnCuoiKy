@@ -50,7 +50,7 @@ public class DSTheoLopDAO {
 		{
 			sql = "select * from quanlygiasu.Lop where TrangThai=1 and LopDay = 'Lớp 7'";
 		}
-		System.out.println(sql);
+		
 		try
 		{
 			PreparedStatement ps = conn.prepareStatement(sql);

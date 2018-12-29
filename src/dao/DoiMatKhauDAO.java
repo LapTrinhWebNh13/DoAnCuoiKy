@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import connect.DBConnect;
-import model.GiaSu;
+
 import model.TaiKhoan;
 
 public class DoiMatKhauDAO {

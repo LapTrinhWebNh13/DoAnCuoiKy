@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/controller/DangKyTimGiaSuServlet.java=UTF-8
 encoding//src/controller/GiaSuServlet.java=UTF-8
 encoding//src/controller/LopServlet.java=UTF-8
 encoding//src/dao/DSTheoLopDAO.java=UTF-8

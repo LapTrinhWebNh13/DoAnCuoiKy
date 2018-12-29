@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import connect.DBConnect;
-import model.Lop;
-import model.GiaSu;
-import model.TaiKhoan;
+
 
 public class DangNhapDAO {
 	

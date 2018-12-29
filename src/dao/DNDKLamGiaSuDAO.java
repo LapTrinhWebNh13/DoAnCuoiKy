@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import connect.DBConnect;
 import model.GiaSu;
 import model.Lop;
-import model.PhuHuynh;
+
 
 public class DNDKLamGiaSuDAO {
 	public static ArrayList<Lop> dsLopCuaGiaSu = new ArrayList<>();

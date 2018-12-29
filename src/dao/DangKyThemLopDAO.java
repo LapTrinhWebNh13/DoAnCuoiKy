@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import connect.DBConnect;
 import model.Lop;
-import model.PhuHuynh;
+
 
 public class DangKyThemLopDAO {
 

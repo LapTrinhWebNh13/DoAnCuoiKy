@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import connect.DBConnect;
-import model.GiaSu;
+
 import model.Lop;
 import model.PhuHuynh;
 public class DNDKTimGiaSuDAO {
