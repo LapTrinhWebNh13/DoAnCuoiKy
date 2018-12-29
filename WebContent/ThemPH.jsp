@@ -188,8 +188,8 @@
 	<div id="menu" style="  background-color: #dddddd;margin-left: 50px;margin-top: 10px">
 		<div id ="main" style="background-color: white">
 		<br>
-		<h3 style="margin-left: 300px;font-size: 30px;">Thêm thông tin phụ huynh</h3>
-		<div>
+		
+		
 			
 			
 		  
@@ -200,6 +200,7 @@
 		  		if(maPH == null)
 		  		{		  			
 		   %>
+		   			<h3 style="margin-left: 300px;font-size: 30px;">THÊM MỚI PHỤ HUYNH</h3>
 		  			<!-- <form action="PhuHuynhServlet/Them>" name="DKTGS" id="FormDKTGS" method="post"> -->
 		  			<form action="PhuHuynhServlet?command=insert&maPH=<%=maPH %>" name="DKTGS" id="FormDKTGS" method="post">
 		  				<div class="row">
@@ -245,6 +246,7 @@
 		  		else if(maPH != null)
 		  		{
 		  	%>
+		  				<h3 style="margin-left: 300px;font-size: 30px;">CHỈNH SỬA THÔNG TIN PHỤ HUYNH</h3>
 						<form action="PhuHuynhServlet?command=update&maPH=<%=maPH %>" name="DKTGS" id="FormDKTGS" method="post">
 						<!-- <form action="PhuHuynhServlet/Them>" name="DKTGS" id="FormDKTGS" method="post"> -->
 							<div class="row">
@@ -277,7 +279,7 @@
 						
 		</div>
 		
-	</div>
+	
 </div>
 </div>
 

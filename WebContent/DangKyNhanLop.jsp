@@ -145,7 +145,7 @@
 						<p style="margin-left: 50px;color: white;font-weight: bold;font-size: 16px;">LỚP ĐANG CẦN GIA SƯ</p>
 					</div>
 					<div class="panel-body">
-						<h4 style="border-bottom: 1px solid black;">Việc làm cần gia sư dạy môn Toán Lớp 6 Q.Tân Bình Hồ Chí Minh</h4>
+						<h4 style="border-bottom: 1px solid black;">Đăng ký nhận lớp</h4>
 						<div class="row">
 							
 							<%

@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<%@ page import = "dao.DangKyTimGiaSuDAO" %>
+
 	<%@ page import = "dao.GiaSuTieuBieu1DAO" %>
-	<%@ page import = "model.PhuHuynh" %>
 	<%@ page import = "model.GiaSu" %>
+	<%@ page import = "model.PhuHuynh" %>
 	<%@ page import = "java.util.*" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>DangKyTimGiaSu</title>
+<title>PHDangKyThemLop</title>
 
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,137 +18,15 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/CSS_DKTGS.css">
-	
-	<!-- kiem tra dinh dang ten dang nhap -->
-	<script type="text/javascript">
-		function checkUsername(str)
-		{
-			var usernameRegex = /^[a-zA-Z0-9]+$/;
-   			 if(!usernameRegex.test(str))
-   			 {
-   				var span = document.getElementById("statustendn");
-   				span.textContent = "Tên đăng nhập không đúng định dạng!";
-   				return true;
-   			 }
-   			 if(str.length < 6)
-    			{
-   				
-    				var span = document.getElementById("statustendn");
-    				span.textContent = "Tên đăng nhập tối thiểu có 6 ký tự!";
-    				return true;
-    			}
-   			
-		}
-	</script>
-	
-	<!-- kiem tra dinh dang mat khau -->
-	<script type="text/javascript">
-	function checkPassword(str)
-	{
-
-	//cach 1:	var usernameRegex =/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
-	//cach 2:
 		
-		var message ="";
-		var passwordRegex = /[a-z]/g; //chua ky tu thuong
-		if(!str.match(passwordRegex))
-			{
-			message = message + "chữ thường. ";
-			}
-		
-		//
-		var passwordRegex2 = /[A-Z]/g;//chua ky tu hoa
-		if(!str.match(passwordRegex2))
-			{
-			message = message + "chữ hoa. ";
-			}
-		
-		//
-		var passwordRegex3 = /[0-9]/g;//chua so
-		if(!str.match(passwordRegex3))
-		{
-		message = message + "số. ";
-		}
-	
-		//
-		if(str.length < 6)//chu it nhat 6 ky tu
-		{
-		message = message + "có ít nhất 6 ký tự.";
-		}
-		
-		var span = document.getElementById("statusmatkhau");
-		if(message=="")
-		{
-			span.textContent = "";
-		}
-		else
-		{
-			span.textContent = "Mật khẩu phải có chứa " + message;
-		}
-		
-	}
-	</script>
-	
-	<!-- kiem tra dinh dang SDT -->
-	<script type="text/javascript">
-		function checkSDT(str)
-		{
-			var phonenumberRegex = /^[0-9]+$/;
-			
-   			 if(!phonenumberRegex.test(str))
-   			 {
-   				var span = document.getElementById("statusdienthoai");
-   				span.textContent = "Số điện thoại không hợp lệ!";
-   				return true;
-   			 }
-   			 if(str.length!=10)
-   			{
-   				var span = document.getElementById("statusdienthoai");
-   				span.textContent = "Yêu cầu số điện thoại là 10 số!";
-   				return true;
-   			}
-		}
-	</script>
-	
-	<script type="text/javascript">
-		function checkLuong(str)
-		{
-			
-			var integer = parseInt(str, 10);
-   			 if(integer < 100)
-   			 {
-   				var span = document.getElementById("statusluong");
-   				span.textContent = "Lương phải từ 100 ngàn đồng!";
-   				return true;
-   			 }
-   			  var span = document.getElementById("statusluong!");
-     		span.textContent = "";
-    			 return false; 
-		}
-	</script>
-
-	<!--kiem tra dinh dang email  -->
-	<script type="text/javascript">
-		function checkEmail(str)
-		{
-   			 var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-   			/*  if(!re.test(str))
-   			 	alert("Please enter a valid email address"); */
-   			 if(!re.test(str))
-   			 {
-   				var span = document.getElementById("statusemail");
-   				span.textContent = "Email không đúng định dạng!";
-   				return true;
-   			 }
-		}
-	</script>
-	
 </head>
-<body >
+<body>
 	<%
-		DangKyTimGiaSuDAO dktgsDAO =new DangKyTimGiaSuDAO();
+		String username = request.getParameter("username");
+		System.out.println("username ben trang them lop jsp: "+username);
 		ArrayList<GiaSu> dsGS = new GiaSuTieuBieu1DAO().getListGiaSu();
 	%>
+	
 	<div class="container">
 	  <div class="row">
 	  	<div class="col-sm-1">
@@ -240,7 +118,6 @@
 						<a href="#" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">GIA SƯ TIÊU BIỂU</a>
 					</div>
   				<div id="anhgstieubieu">
-				
 						<a href="/QuanLyGiaSu/GiaSuTieuBieu1.jsp?maGS=<%=dsGS.get(0).getMaGS() %>"><img src="./HinhAnhServlet?maGS=<%=dsGS.get(0).getMaGS() %>" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: -10px"></a>
 						<a href="/QuanLyGiaSu/GiaSuTieuBieu1.jsp?maGS=<%=dsGS.get(1).getMaGS() %>"><img src="./HinhAnhServlet?maGS=<%=dsGS.get(1).getMaGS() %>" style="width: 90px;height: 130px;float: left;margin-right: 5x;margin-top: -10px"></a>
 						<a href="/QuanLyGiaSu/GiaSuTieuBieu1.jsp?maGS=<%=dsGS.get(2).getMaGS() %>"><img src="./HinhAnhServlet?maGS=<%=dsGS.get(2).getMaGS() %>" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: 5px"></a>
@@ -248,9 +125,9 @@
 						<a href="/QuanLyGiaSu/GiaSuTieuBieu1.jsp?maGS=<%=dsGS.get(4).getMaGS() %>"><img src="./HinhAnhServlet?maGS=<%=dsGS.get(4).getMaGS() %>" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: 5px"></a>
 						<a href="/QuanLyGiaSu/GiaSuTieuBieu1.jsp?maGS=<%=dsGS.get(5).getMaGS() %>"><img src="./HinhAnhServlet?maGS=<%=dsGS.get(5).getMaGS() %>" style="width: 90px;height: 130px;float: left;margin-right: 5px;margin-top: 5px"></a>
 				</div>	
-				<a href="/QuanLyGiaSu/DSGiaSuTieuBieu.jsp" style="text-decoration: none;margin-left: 50px;font-size: 18px;">Xem thêm gia sư</a>
+					<a href="/QuanLyGiaSu/DSGiaSuTieuBieu.jsp" style="text-decoration: none;margin-left: 50px;font-size: 18px;">Xem thêm gia sư</a>
   				<div class="list-group" style="height: 320px">
-						<a href="" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">CÁC LỚP CẦN GIA SƯ</a>
+					<a href="" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">CÁC LỚP CẦN GIA SƯ</a>
 						<a href="/QuanLyGiaSu/DSLop.jsp?lopDay=1" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tìm gia sư dạy lớp 1</a>
 						<a href="/QuanLyGiaSu/DSLop.jsp?lopDay=2" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tìm gia sư lớp 2</a>
 						<a href="/QuanLyGiaSu/DSLop.jsp?lopDay=3" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tìm gia sư lớp 3</a>
@@ -260,7 +137,7 @@
 						<a href="/QuanLyGiaSu/DSLop.jsp?lopDay=7" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" style="color: #F28E11;"></span>Tìm gia sư lớp 7</a>
 
 				</div>
-					<a href="PageServlet?command=LopMoi&pageID=1" style="margin-left: 80px; text-decoration: none;font-size: 18px;margin-top: -10px;">Xem Thêm</a>
+					<a href="#" style="margin-left: 80px; text-decoration: none;font-size: 18px;margin-top: -10px;">Xem Thêm</a>
   				<div class="list-group">
 					<a href="#" class="list-group-item active" style="background-color: #FF8000; text-align: center;color: darkred;font-weight: bold">BẢN ĐỒ CHỈ ĐƯỜNG</a>
 					<img src="image/dodo.jpg" style="width: 210px">
@@ -270,52 +147,12 @@
 	  	<div class="col-lg-7">
 	  		<div class="panel panel-default">
 				<div class="panel-heading">
-					<p style="margin-left: 50px;color: white;font-weight: bold;font-size: 16px;">ĐĂNG KÝ TÌM GIA SƯ</p>
+					<p style="margin-left: 50px;color: white;font-weight: bold;font-size: 16px;">ĐĂNG KÝ THÊM LỚP</p>
 				</div>
 				<div class="panel-body">
 						
-						 <form  action="DangKyTimGiaSuServlet" name="DKTGS" id="FormDKTGS" method="post">
-						 <div class="row">
-						 <h4 style="font-weight:bold ; ">Nếu đã có tài khoản, vui lòng <a href="DangNhap.jsp">đăng nhập</a></h4>
-						 		<label for="tendangnhap">Tên đăng nhập (<span class="red">*</span>)</label>
-						 		<input type="text" name="tendangnhap" id="tendangnhap" class="validate" required onblur="if(!checkUsername(this.value)) checkExist()"/><br/>
-						 	</div>
-						 	<div class="row">
-						 		<span style="color: red; margin-left: 40px;" id="statustendn"></span>
-						 	</div>
-						 	<div class="row">
-						 		<label for="matkhau">Mật khẩu (<span class="red">*</span>)</label>
-						 		<input type="password" name="matkhau" id="matkhau" required onblur="checkPassword(this.value)"/>
-						 	</div>
-						 	<div class="row">
-						 		<span style="color: red; margin-left: 40px;" id="statusmatkhau"></span>
-						 	</div>
-						 	<div class="row">
-						 		<label for="hoten">Họ tên (<span class="red">*</span>)</label>
-						 		<input type="text" name="name" id="name" placeholder="Nguyễn Văn A" required >
-						 	</div>
-						 	<div class="row">
-						 		<label for="diachi">Địa chỉ (<span class="red">*</span>)</label>
-						 		<input type="text" name="diachi" id="diachi" placeholder="Phường 13, Q.Tân Bình, TP.HCM" required>
-						 	</div>
-						 	<div class="row">
-						 		<label for="dienthoai">Điện thoại (<span class="red">*</span>)</label>
-						 		<input type="text" name="dienthoai" id="dienthoai" placeholder="0923456723" required onblur="if(!checkSDT(this.value)) checkExistSDT()"/>
-						 	</div> 
-						 	<div class="row">
-						 		<span style="color:red; margin-left: 40px;" id="statusdienthoai"></span>
-						 	</div>
-						 	<div class="row">
-						 		<span id="txtchecksdt"></span>
-						 	</div>
-						 	<div class="row">
-						 		<label for="email">Email (<span class="red">*</span>)</label>
-						 		<input type="text" name="email" id="email" placeholder="abc@gmail.com" onblur="if(!checkEmail(this.value)) checkExistEmail()" required>
-						 	</div>
-						 	<div class="row">
-						 		<span style="color:red; margin-left: 40px;" id="statusemail"></span>
-						 	</div>
-						 	
+						 <form action="DangKyThemLopServlet" name="PHDKTL" id="FormPHDKTL" method="post">
+						<input id="username" value="<%=username%>"name="username" type="hidden">
 						 	<div class="row">
 						 		<label for="lop">Lớp (<span class="red">*</span>)</label>
 						 		<select name="classes">
@@ -325,7 +162,7 @@
 						 			<option value="Lớp 4">Lớp 4</option>
 						 			<option value="Lớp 5">Lớp 5</option>
 						 			<option value="Lớp 6">Lớp 6</option>
-						 			<option value="lop7">Lớp 7</option>
+						 			<option value="Lớp 7">Lớp 7</option>
 						 			<option value="Lớp 8">Lớp 8</option>
 						 			<option value="Lớp 9">Lớp 9</option>
 						 			<option value="Lớp 10">Lớp 10</option>
@@ -366,6 +203,10 @@
 						 		<input type="text" name="thoigianhoc" id="thoigianhoc" placeholder="Ví dụ: T2-T4-T6; 17h-19h" required>
 						 	</div>
 						 	<div class="row">
+						 		<label for="diachi">Địa chỉ(<span class="red">*</span>)</label>
+						 		<input type="text" name="diachi" id="diachi" required>
+						 	</div>
+						 	<div class="row">
 						 		<label for="yeucau">Yêu cầu (<span class="red">*</span>)</label>
 						 		<select name="yeucau"  required>
 						 			<option value="Sinh viên nam">Sinh viên nam</option>
@@ -374,20 +215,18 @@
 						 			<option value="Giáo viên nữ">Giáo viên nữ</option>
 						 			<option value="Cử nhân nữ">Cử nhân nữ</option>
 						 			<option value="Cử nhân nam">Cử nhân nam</option>
+						 			
 						 		</select>
 						 	</div>
 						 	<div class="row">
 						 		<label for="luong">Lương(<span class="red">*</span>)</label>
-						 		<input type="text" name="luong" id="luong" onblur="checkLuong(this.value)" placeholder="Đơn vị: ngàn đồng/buổi " required>
-						 		
-						 	</div>
-						 	<div class="row">
-						 		<span style="color:red; margin-left: 40px;" id="statusluong"></span>
-						 	</div>
-						 	<div class="submit">
-						 		<input type="submit" value="Đăng ký" id="dangky" >
+						 		<input type="text" name="luong" id="luong" required>
+						 		<label style="margin-left: 180px;" for="luong">ngàn đồng/buổi</label>
 						 	</div>
 						 	
+						 	<div class="submit">
+						 		<input type="submit" value="Đăng ký" id="dangky">
+						 	</div>
 						 </form>
 						 
 					
@@ -581,7 +420,7 @@
         xmlhttp.onreadystatechange = function()
         /* onreadystatechange: Một Event Handler lắng nghe và xử lý một sự kiện khi có thay đổi về trạng thái nào diễn ra. */
         {
-        	/*  //Kiem tra gui request thanh cong */
+        	/*  //Kiem tra neu nhu da gui request thanh cong */
             if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
             {
             	/* readyState: trạng thái hiện tại của đối tượng XMLHttpRequest. 4: request đã xong và dữ liệu trả về đã sẵn sàng để xử lý. 
@@ -617,7 +456,7 @@
         /* Bat su kien thay doi trang thai cuar request */
         xmlhttp.onreadystatechange = function()
         {
-        	/*  Kiem tra gui request thanh cong */
+        	/*  //Kiem tra neu nhu da gui request thanh cong */
             if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
             {
                 document.getElementById("statusdienthoai").innerHTML = xmlhttp.responseText;
@@ -646,7 +485,7 @@
         /* Bat su kien thay doi trang thai cuar request */
         xmlhttp.onreadystatechange = function()
         {
-        	/*  //Kiem tra gui request thanh cong */
+        	/*  //Kiem tra neu nhu da gui request thanh cong */
             if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
             {
                 document.getElementById("statusemail").innerHTML = xmlhttp.responseText;
@@ -665,16 +504,5 @@
         }
     }
 	</script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>
-	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-		
-	<script type="text/javascript">
-		function hienthongbaoloidl(loi){
-			if(loi ==null ||loi=="")
-				return;
-			var errormessagedb= "Đăng ký tài khoản thất bại, vui lòng kiểm tra lại: " + loi + "!!!"; 
-			document.getElementById("email").value = "My value";
-			swal(errormessagedb,"", "error")
-		}
-	</script>
+
 </html>

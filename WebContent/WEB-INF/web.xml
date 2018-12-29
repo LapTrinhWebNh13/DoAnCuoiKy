@@ -3,6 +3,6 @@
   <display-name>QuanLyGiaSu</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
-    <welcome-file>TrangAdmin.jsp</welcome-file>
+    <welcome-file>TrangChu.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

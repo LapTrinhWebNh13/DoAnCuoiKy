@@ -113,12 +113,7 @@
 				<br>
 				<%
 					ArrayList<PhuHuynh> dsPH = new PhuHuynhDAOImpl().getListPhuHuynh();
-					/* ArrayList<PhuHuynh> dsLocPH = (ArrayList<PhuHuynh>) session.getAttribute("dsLocPH");
 					
-					if(session.getAttribute("dsLocPH") != null)
-					{
-						dsPH = dsLocPH;
-					} */
 				%>
 				<table>
 					<tr>
