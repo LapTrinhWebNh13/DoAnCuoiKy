@@ -192,6 +192,8 @@
 
 <body >
 	<%
+		
+		
 		String username=(String)session.getAttribute("username");
 		System.out.println("username ben trang dndklamgs: " + username);
 		String password = (String)session.getAttribute("password");
